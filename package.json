@@ -12,11 +12,13 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "react-hot-loader": "^1.3.0"
+    "react-hot-loader": "^1.3.0",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.12.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "start node server & start node tools/webpack"
+    "start": "start node server"
   },
   "repository": {
     "type": "git",

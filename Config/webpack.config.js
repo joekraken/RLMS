@@ -6,7 +6,15 @@ var path= require('path');
 const BUILD_DIR = path.resolve('src/client/public');
 const APP_DIR = path.resolve('src/client/app/index.jsx');
 var config ={
-    entry:APP_DIR,
+    plugins:[
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin()
+    ],
+    entry:[
+        'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+        APP_DIR
+    ],
     output:{
         path:BUILD_DIR,
         filename:'bundle.js'
@@ -25,7 +33,9 @@ var config ={
 
 
         ]
+
     }
+
 
 
 };
