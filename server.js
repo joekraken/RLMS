@@ -8,6 +8,7 @@ var express = require('express'),
     configDir = path.resolve('config/webpack.config.js'),
         webpackDevMiddleware = require('webpack-dev-middleware'),
         webpackHotMiddleware = require('webpack-hot-middleware'),
+        gutil = require('gulp-util'),
     webpackConfig =require(configDir),
     compiler=webpack(webpackConfig);
 
@@ -30,7 +31,18 @@ app.use(express.static('src/client/public'));
 app.use(function(req,res){
     res.status(404);
     res.end("The requested document doesn't exist");
-    console.log('404 was reached at' + req.originalUrl);
+    gutil.log('[Express - info]','A 404 error was reached at ',gutil.colors.magenta(req.originalUrl));
 })
-app.listen(3000);
-console.log('listening');
+try{
+
+listen(3000);
+}
+catch(err)
+{
+  gutil.log('[Express - error]', guitil.colors.red('cannot bind to port'));
+  process.exit();
+}
+function listen(port){
+  app.listen(port);
+  gutil.log('[Express -info]','Currently listening on port',gutil.colors.green(port));
+}
