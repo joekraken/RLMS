@@ -1,0 +1,28 @@
+{
+  "curriculum": {
+    "id":0,
+    "name":".NET",
+    "lesson":[
+    {      
+      "id":1,
+      "topic":"Core",
+      "week":1,
+      "frameworks":[{"id":1, "title":".Net", "keywords":"class, property, polymorphism"}]
+    },
+    {
+      "id":2,
+      "topic":"Data",
+        "week":2,
+        "frameworks": [{"id":3, "title":"SQL", "keywords":"insert, table, stored procedure"}, 
+        {"id":4, "title":"Entity", "keywords":"ORM, save changes"}]
+      },
+    {
+      "id":5,
+       "topic":"Angular",
+        "week":3,
+        "frameworks": [{"id":7, "title":"Angular", "keywords":"ng-repeat, directive"}]
+      }
+  ]
+  }
+  
+}
