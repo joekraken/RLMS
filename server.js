@@ -14,8 +14,8 @@ var express = require('express'),
 
 app.use(webpackDevMiddleware(compiler, {
     hot: true,
-    filename: 'bundle.js',
-    publicPath: '/',
+    filename: '[name].js',
+    publicPath: '/JS',
     stats: {
         colors: true,
     },
@@ -27,7 +27,7 @@ app.use(webpackHotMiddleware(compiler, {
     path: '/__webpack_hmr',
     heartbeat: 10 * 1000,
 }));
-app.use(express.static('src/client/public'));
+app.use(express.static('app/public'));
 app.use(function(req,res){
     res.status(404);
     res.end("The requested document doesn't exist");

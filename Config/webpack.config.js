@@ -3,21 +3,35 @@
  */
 var webpack = require('webpack');
 var path= require('path');
-const BUILD_DIR = path.resolve('src/client/public');
-const APP_DIR = path.resolve('src/client/app/index.jsx');
+const BUILD_DIR = path.resolve('app/public/JS/');
+const APP_DIR = path.resolve('app/dev/');
+var glob = require('glob');
 var config ={
     plugins:[
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+          name: 'common',
+          filename: 'rlmsCommon.js',
+          minChunks: 2
+        })
+        //new webpack.optimize.UglifyJsPlugin()
     ],
-    entry:[
-        'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
-        APP_DIR
-    ],
+    entry:{
+      vendor:['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000','react','react-dom'],
+      rlmsForum:glob.sync(APP_DIR + '/RLMSForum/**/*.jsx'),
+      rlmsAdmin:glob.sync(APP_DIR+ '/RLMSAdmin/**/*.jsx'),
+      rlmsCurriculm:glob.sync(APP_DIR + '/RLMSCurriculm/**/*.jsx'),
+      rlmsLogin:glob.sync(APP_DIR + '/RLMSLogin/**/*.jsx'),
+      rlmsExam:glob.sync(APP_DIR + '/RLMSExams/**/*.jsx'),
+      rlmsUser:glob.sync(APP_DIR + '/RLMSUsers/**/*.jsx'),
+      rlmsMain:glob.sync(APP_DIR + '/RLMSMain/**/*/.jsx')
+    },
+
     output:{
         path:BUILD_DIR,
-        filename:'bundle.js'
+        filename:'[name].js'
     },
     watch: true,
     module:{
