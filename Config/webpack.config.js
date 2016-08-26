@@ -22,11 +22,11 @@ var config ={
       vendor:['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000','react','react-dom'],
       rlmsForum:glob.sync(APP_DIR + '/RLMSForum/**/*.jsx'),
       rlmsAdmin:glob.sync(APP_DIR+ '/RLMSAdmin/**/*.jsx'),
-      rlmsCurriculm:glob.sync(APP_DIR + '/RLMSCurriculm/**/*.jsx'),
+      rlmsCurriculum:glob.sync(APP_DIR + '/RLMSCurriculum/**/*.jsx'),
       rlmsLogin:glob.sync(APP_DIR + '/RLMSLogin/**/*.jsx'),
       rlmsExam:glob.sync(APP_DIR + '/RLMSExams/**/*.jsx'),
       rlmsUser:glob.sync(APP_DIR + '/RLMSUsers/**/*.jsx'),
-      rlmsMain:glob.sync(APP_DIR + '/RLMSMain/**/*/.jsx')
+      rlmsMain:glob.sync(APP_DIR + '/RLMSMain/**/*.jsx')
     },
 
     output:{
