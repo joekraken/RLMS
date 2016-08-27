@@ -11,7 +11,7 @@ var express = require('express'),
     gutil = require('gulp-util'),
     webpackConfig =require(configDir);
     compiler=webpack(webpackConfig);
-var mongDA = require('./tools/mongoDataAccess.js');
+var DA = require('./tools/mongoDataAccess.js');
 app.use(webpackDevMiddleware(compiler, {
     hot: true,
     filename: '[name].js',
@@ -29,19 +29,13 @@ app.use(webpackHotMiddleware(compiler, {
 }));
 app.use(express.static('app/public'));
 app.get('/stuff',(req,res)=>{
-  res.status(200);
-  var x = {
-    "Name":"Alex",
-    "Occupation":"Basketweaver"
-  }
-  mongDA.AddPerson(x,(result)=>{
-
-  })
-  mongDA.GetPerson((result)=>{
-    res.send(JSON.stringify(result));
-
-  })
-})
+var myDa = new DA();
+    var user = {
+        username:'Alex'
+    };
+    myDa.addOrUpdateUser(user,(result)=>{console.log(result)})
+   //myDa.getUsers('Alex',(result)=>{console.log(result)})
+});
 app.use(function(req,res){
     res.status(404);
     res.end("The requested document doesn't exist");
