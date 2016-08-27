@@ -41,6 +41,7 @@ DataAccess.prototype.getUsers =(username,callback)=>{
             }
     });
 };
+// as stated, this allows for users to be added or updated.
 DataAccess.prototype.addOrUpdateUser=(user,callback)=>{
     var client = DataAccess.prototype.MongoClient;
     var url = DataAccess.prototype.url;
@@ -68,13 +69,23 @@ DataAccess.prototype.addOrUpdateUser=(user,callback)=>{
             })
         }else{callback('fail')}
     });
-    console.log(other);
+
 
 
 
 };
-
-
+DataAccess.prototype.getForums=()=>{//todo
+ };
+DataAccess.prototype.addOrUpdateForums=()=>{//todo
+ };
+DataAccess.prototype.getLessons=()=>{//todo
+};
+DataAccess.prototype.addOrUpdateLessons=()=>{//todo
+};
+DataAccess.prototype.getExams=()=>{//todo
+};
+DataAccess.prototype.addOrUpdateExams=()=>{//todo
+};
 
 
 // var exports = module.exports = {
