@@ -16,7 +16,7 @@ DataAccess.prototype.getUsers =(username,callback)=>{
                 if(err){console.log(err)}
                 if(!username)
                 {
-                    console.log('no user');
+                    console.log('No user was defined');
                     var cursor =db.collection('user').find();
                     var result = [];
                     cursor.each((err,doc)=>{
@@ -74,8 +74,29 @@ DataAccess.prototype.addOrUpdateUser=(user,callback)=>{
 
 
 };
-DataAccess.prototype.getForums=()=>{//todo
- };
+DataAccess.prototype.getForums=(batchName,callback)=>{//todo
+    var client = DataAccess.prototype.MongoClient;
+    var url = DataAccess.prototype.url;
+    if(forumName)
+    {
+            client.connect(url,(err,db)=>{
+                var cursor = db.collection('forum').find();
+                var result =[];
+                cursor.each((err,doc)=>{
+                    if(doc){result.push(doc)}
+                    else{db.close(); callback(result);}
+                });
+        });
+    }else{
+        client.connect(url,(err,db)=>{
+            var cursor = db.collection('forum').find({batchName:batchName});
+            var result =[];
+            cursor.each((err,doc)=>{
+                if(doc){result.push(doc)}
+                else{db.close(); callback(result);}
+            });
+        }
+};
 DataAccess.prototype.addOrUpdateForums=()=>{//todo
  };
 DataAccess.prototype.getLessons=()=>{//todo
