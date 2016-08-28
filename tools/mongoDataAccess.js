@@ -42,6 +42,7 @@ DataAccess.prototype.getUsers =(username,callback)=>{
     });
 };
 // as stated, this allows for users to be added or updated.
+//passes the result into a callback
 DataAccess.prototype.addOrUpdateUser=(user,callback)=>{
     var client = DataAccess.prototype.MongoClient;
     var url = DataAccess.prototype.url;
@@ -87,19 +88,55 @@ DataAccess.prototype.getForums=(batchName,callback)=>{//todo
                     else{db.close(); callback(result);}
                 });
         });
-    }else{
-        client.connect(url,(err,db)=>{
-            var cursor = db.collection('forum').find({batchName:batchName});
-            var result =[];
-            cursor.each((err,doc)=>{
-                if(doc){result.push(doc)}
-                else{db.close(); callback(result);}
+    }else {
+        client.connect(url, (err, db)=> {
+            var cursor = db.collection('forum').find({batchName: batchName});
+            var result = [];
+            cursor.each((err, doc)=> {
+                if (doc) {
+                    result.push(doc)
+                }
+                else {
+                    db.close();
+                    callback(result);
+                }
             });
-        }
+        })
+    }
 };
-DataAccess.prototype.addOrUpdateForums=()=>{//todo
+DataAccess.prototype.addOrUpdateForums=(forum,callback)=>{
+    var client = DataAccess.prototype.MongoClient;
+    var url = DataAccess.prototype.url;
+    var newForm = {
+      batchName:forum.batchName,
+      description:forum.description,
+      posts:forum.posts,
+    };
+    if(form){
+        DataAccess.prototype.getForums(newForm.batchName,(result)=>{
+            if(result)
+            {
+                console.log('Ca')
+            }else{
+                client.open(url,(err,db)=>{
+                    db.collection('forum').save(newForm,(err)=>{
+
+                        if(!err){
+                            console.log('Entry successfully added to the database');
+                        }
+
+                    })
+                })
+            }
+        })
+    }else{
+        console.log('cannot insert a null value into the database');
+    }
  };
-DataAccess.prototype.getLessons=()=>{//todo
+DataAccess.prototype.getLessons=()=>{
+    var client = DataAccess.prototype.MongoClient;
+    var url = DataAccess.prototype.url;
+    //todo
 };
 DataAccess.prototype.addOrUpdateLessons=()=>{//todo
 };
