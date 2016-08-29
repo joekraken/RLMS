@@ -26,13 +26,15 @@ var config ={
       rlmsLogin:glob.sync(APP_DIR + '/RLMSLogin/**/*.jsx'),
       rlmsExam:glob.sync(APP_DIR + '/RLMSExams/**/*.jsx'),
       rlmsUser:glob.sync(APP_DIR + '/RLMSUsers/**/*.jsx'),
-      rlmsMain:glob.sync(APP_DIR + '/RLMSMain/**/*.jsx')
+      rlmsMain:glob.sync(APP_DIR + '/RLMSMain/**/*.jsx'),
+      rlmsTests:glob.sync(APP_DIR + '/RLMSTests/**/*.jsx')
     },
 
     output:{
         path:BUILD_DIR,
         filename:'[name].js'
     },
+
     watch: true,
     module:{
         loaders:[
