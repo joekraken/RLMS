@@ -1,16 +1,20 @@
 import React from 'react'
-import NavLink from './NavLink.jsx'
 
 export default React.createClass({
+    //required for routing with a on click function
+    ///////////////////////////////////////////////
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
+    test : function(){
+        this.context.router.push('/#/home');
+    },
+    /////////////////////////////////////////////////
+
     render() {
         return (
             <div>
-                <h2>Repos</h2>
-                <ul>
-                    <li><NavLink to="/repos/reactjs/react-router">React Router</NavLink></li>
-                    <li><NavLink to="/repos/facebook/react">React</NavLink></li>
-                </ul>
-                {this.props.children}
+                <button onClick={this.test} className="btn">testing</button>
             </div>
         )
     }

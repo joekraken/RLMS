@@ -26,7 +26,7 @@ export default class Header extends React.Component{
             color:"white",
             textDecoration :'none'
         }
-        return (<Navbar inverse>
+        return (<Navbar inverse fixedTop>
             <Navbar.Header>
                 <Navbar.Brand>
                     <NavLink to="/home">React LMS</NavLink>

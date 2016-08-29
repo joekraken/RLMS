@@ -4,10 +4,10 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import App from './App.jsx'
 import About from './About.jsx'
 import Repos from './Repos.jsx'
-import Repo from './Repo.jsx'
 import Home from './Home.jsx'
 import News from './News.jsx'
 import User from './digest.jsx'
+import Repo from './Repos.jsx'
 
 
 render((
@@ -19,6 +19,7 @@ render((
                 </Route>
                 <Route path ="user" component = {User}/>
                 <Route path ="home" component = {News}/>
+                <Route path ="repo" component = {Repo}/>
             </Route>
         </Router>
 ),document.getElementById('app'))
