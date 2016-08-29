@@ -34,13 +34,17 @@ export default React.createClass({
                 <Header/>
                 <div className="container" style={containerFix}>
                     <div style={left} className="well">
-                        <ul role="nav" style={nav}>
-                            <li><NavLink to="/home">Home</NavLink></li>
+                        <div role="nav" className="list-group" style={nav}>
+                            <NavLink to="/home" className="list-group-item">Home</NavLink>
+                            <NavLink to="/user"className="list-group-item">User</NavLink>
+                            <NavLink to="/repo"className="list-group-item">Repo</NavLink>
                             <br/>
-                            <li><NavLink to="/user">User</NavLink></li>
                             <br/>
-                            <li><NavLink to="/repo">Repo</NavLink></li>
-                        </ul>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <NavLink to="/home" className="list-group-item">Logout</NavLink>
+                        </div>
                     </div>
                     <div style={right} className="well">
                         {this.props.children}
