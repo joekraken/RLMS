@@ -1,11 +1,11 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, hashHistory, IndexRoute } from 'react-router'
-import App from './App'
-import About from './About'
-import Repos from './Repos'
-import Repo from './Repo'
-import Home from './Home'
+import App from './App.jsx'
+import About from './About.jsx'
+import Repos from './Repos.jsx'
+import Repo from './Repo.jsx'
+import Home from './Home.jsx'
 
 
 render((
