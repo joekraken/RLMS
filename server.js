@@ -40,7 +40,7 @@ app.use(function(req,res){
     res.status(404);
     res.end("The requested document doesn't exist");
     gutil.log('[Express - info]','A 404 error was reached at ',gutil.colors.magenta(req.originalUrl));
-})
+});
 try{
 
 listen(3000);

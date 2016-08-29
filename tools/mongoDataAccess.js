@@ -9,33 +9,26 @@ function DataAccess()
 // if username is null, all users are returned.
 DataAccess.prototype.getUsers =(username,callback)=>{
 
+
     var url = DataAccess.prototype.url;
     DataAccess.prototype.MongoClient.connect(url,(err,db)=> {
             if(!err)
             {
                 if(err){console.log(err)}
+                var cursor;
                 if(!username)
                 {
-                    console.log('No user was defined');
-                    var cursor =db.collection('user').find();
-                    var result = [];
-                    cursor.each((err,doc)=>{
-                        if(doc){
-                            result.push(doc);
-                        }else{
-                            //if there isn't any more results, close the connection and then return the results;
-                            db.close();
-                            callback(result)}
-                    })
-                }else{
+                    cursor = db.collection('user').find();
 
-                    var cursor = db.collection('user').find({username:username});
-                    var result = [];
-                    cursor.each((err,doc)=>{
-                        if(doc){result.push(doc)}
-                        else{callback(result[0])}
-                    })
+                }else{
+                    cursor = db.collection('user').find({username:username});
                 }
+                var result=[];
+                cursor.each((err,doc)=>{
+                    if(doc){
+                        result.push(doc);
+                    }else{callback(result)}
+                })
             }else{
                 console.log(err);
             }
@@ -49,12 +42,15 @@ DataAccess.prototype.addOrUpdateUser=(user,callback)=>{
     var other =[];
     // attempt to get the user. If the use exists, make it fail.
     DataAccess.prototype.getUsers(user.username,(result)=>{
-        if(result){
-            user._id = result._id;
-        }
+
+        if(result != []){
+            console.log(result);
+            user._id = result[0]._id;
+
+    }
         if(user)
         {
-            // ceraete the structure for the inserted datea
+
             var newUser = {
                 username: user.username,
                 _id : user._id,
@@ -81,31 +77,25 @@ DataAccess.prototype.addOrUpdateUser=(user,callback)=>{
 DataAccess.prototype.getForums=(batchName,callback)=>{//todo
     var client = DataAccess.prototype.MongoClient;
     var url = DataAccess.prototype.url;
-    if(forumName)
-    {
-            client.connect(url,(err,db)=>{
-                var cursor = db.collection('forum').find();
-                var result =[];
-                cursor.each((err,doc)=>{
-                    if(doc){result.push(doc)}
-                    else{db.close(); callback(result);}
-                });
-        });
-    }else {
-        client.connect(url, (err, db)=> {
-            var cursor = db.collection('forum').find({batchName: batchName});
-            var result = [];
-            cursor.each((err, doc)=> {
-                if (doc) {
-                    result.push(doc)
-                }
-                else {
-                    db.close();
-                    callback(result);
-                }
-            });
+    var cursor;
+    client.connect(url,(err,db)=>{
+        if(batchName)
+        {
+            cursor = db.collection('forum').find({batchName:batchName})
+        }else{
+            cursor = db.collection('forum').find();
+        }
+        var result = [];
+        cusor.each((err,doc)=>{
+            if(doc){
+                result.push(doc);
+            }else{
+                callback(result);
+            }
         })
-    }
+    });
+
+
 };
 DataAccess.prototype.addOrUpdateForums=(forum,callback)=>{
     var client = DataAccess.prototype.MongoClient;
@@ -119,7 +109,7 @@ DataAccess.prototype.addOrUpdateForums=(forum,callback)=>{
         DataAccess.prototype.getForums(newForm.batchName,(result)=>{
             if(result)
             {
-                newForm._id = result._id;
+                newForm._id = result[0]._id;
             }else{
                 client.open(url,(err,db)=>{
                     db.collection('forum').save(newForm,(err)=>{
@@ -140,32 +130,19 @@ DataAccess.prototype.addOrUpdateForums=(forum,callback)=>{
 DataAccess.prototype.getLessons=(lessonName,callback)=>{
     var client = DataAccess.prototype.MongoClient;
     var url = DataAccess.prototype.url;
-    if(lessonName){
-        client.connect((err,db)=>{
-            var cursor = db.collection('lesson').find({curriculum:lessonName});
-            var temp =[];
-            cursor.each((err,doc)=> {
-                if(doc){
-                    temp.push(doc);
-                }else{
-                    callback(temp);
-                }
-            })
-        })
-    }
-    client.connect((err,db)=>{
-        var cursor = db.collection('lessons').find();
-        var temp=[];
+    var cursor;
+    client.open((err,db)=>{
+        if(lessonName) {
+            cursor = db.collection('lesson').find({lessonName:lessonName});
+        }else{
+            cursor = db.collection('lesson').find();
+        }
+        var result=[];
         cursor.each((err,doc)=>{
-            if(doc){
-                temp.push(doc);
-            }else{
-                callback(temp);
-            }
+            if(doc){result.push(doc)}
+            else{ db.close(); callback(result);}
         })
     })
-
-
 };
 DataAccess.prototype.addOrUpdateLessons=(lesson,callback)=>{
     var client = DataAccess.prototype.MongoClient;
@@ -173,7 +150,7 @@ DataAccess.prototype.addOrUpdateLessons=(lesson,callback)=>{
     client.open((err,db)=>{
         DataAccess.prototype.getLessons(lesson.batchName,(result)=>{
             if(result){
-                lesson._id = result._id;
+                lesson._id = result[0]._id;
             }
             var newLesson = {
                 _id:lesson._id,
@@ -192,8 +169,27 @@ DataAccess.prototype.addOrUpdateLessons=(lesson,callback)=>{
 
 
 };
-DataAccess.prototype.getExams=(exam,callback)=>{//todo
+DataAccess.prototype.getExams=(exam,callback)=>{
+    var client = DataAccess.prototype.MongoClient;
+    var  url = DataAccess.prototype.url;
+    client.open(url,(err,db)=>{
+        var result =[];
+        var cursor =db.collection('exams').find();
+        cursor.each((err,doc)=>{
+            if(doc){
+                result.push(doc);
+            }else{callback(result)}
+        })
+
+    })
 };
-DataAccess.prototype.addOrUpdateExams=()=>{//todo
+DataAccess.prototype.addOrUpdateExams=(exam, callback)=>{
+    var client = DataAccess.prototype.MongoClient;
+    var  url = DataAccess.prototype.url;
+    client.connect((err,db)=>{
+        db.collection('exams').save(exam,(err)=>{
+            if(!err){callback('success')}
+        })
+    })
 };
 
