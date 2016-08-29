@@ -12,6 +12,9 @@ var express = require('express'),
     webpackConfig =require(configDir),
     compiler=webpack(webpackConfig);
 
+var basicRouter = require('./routing/RLMSTesting.js');
+app.use('/api',basicRouter);
+
 app.use(webpackDevMiddleware(compiler, {
     hot: true,
     filename: '[name].js',
