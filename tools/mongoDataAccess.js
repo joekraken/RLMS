@@ -59,7 +59,8 @@ DataAccess.prototype.addOrUpdateUser=(user,callback)=>{
                 f_name:user.f_name,
                 l_name:user.l_name,
                 email:user.email,
-                batch:user.batch
+                batch:user.batch,
+                password:user.password
             };
             client.connect(url,(err,db)=>{
                 db.collection('user').save(newUser,(err)=>{
@@ -87,7 +88,7 @@ DataAccess.prototype.getForums=(batchName,callback)=>{//todo
             cursor = db.collection('forum').find();
         }
         var result = [];
-        cusor.each((err,doc)=>{
+        cursor.each((err,doc)=>{
             if(doc){
                 result.push(doc);
             }else{
@@ -107,22 +108,25 @@ DataAccess.prototype.addOrUpdateForums=(forum,callback)=>{
       description:forum.description,
       posts:forum.posts,
     };
-    if(form){
+    if(forum){
         DataAccess.prototype.getForums(newForm.batchName,(result)=>{
             if(result.length > 0 )
             {newForm._id = result[0]._id;
-            }else{
-                client.open(url,(err,db)=>{
+                console.log('duplicate found');
+            }
+                client.connect(url,(err,db)=>{
+                    console.log(err);
                     db.collection('forum').save(newForm,(err)=>{
 
                         if(!err){
                             console.log('Entry successfully added to the database');
                             callback('Entry successfully added');
                         }
+                        else{console.log("this fuck?")}
 
                     })
                 })
-            }
+
         })
     }else{
         console.log('cannot insert a null value into the database');
@@ -193,11 +197,8 @@ DataAccess.prototype.addOrUpdateExams=(exam, callback)=>{
     var  url = DataAccess.prototype.url;
     var newExam = {
         topic: exam.topic,
-        questions: exam.questions,
-        correct:exam.correct,
-        options:exam.options,
-        weight:exam.weight,
-        type:exam.type
+        questions: exam.questions
+
     };
     client.connect((err,db)=>{
         db.collection('exams').save(exam,(err)=>{
