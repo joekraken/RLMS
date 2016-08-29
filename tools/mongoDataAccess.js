@@ -112,18 +112,21 @@ DataAccess.prototype.addOrUpdateForums=(forum,callback)=>{
         DataAccess.prototype.getForums(newForm.batchName,(result)=>{
             if(result.length > 0 )
             {newForm._id = result[0]._id;
-            }else{
+                console.log('duplicate found');
+            }
                 client.connect(url,(err,db)=>{
+                    console.log(err);
                     db.collection('forum').save(newForm,(err)=>{
 
                         if(!err){
                             console.log('Entry successfully added to the database');
                             callback('Entry successfully added');
                         }
+                        else{console.log("this fuck?")}
 
                     })
                 })
-            }
+
         })
     }else{
         console.log('cannot insert a null value into the database');
@@ -194,11 +197,8 @@ DataAccess.prototype.addOrUpdateExams=(exam, callback)=>{
     var  url = DataAccess.prototype.url;
     var newExam = {
         topic: exam.topic,
-        questions: exam.questions,
-        correct:exam.correct,
-        options:exam.options,
-        weight:exam.weight,
-        type:exam.type
+        questions: exam.questions
+
     };
     client.connect((err,db)=>{
         db.collection('exams').save(exam,(err)=>{
@@ -206,3 +206,4 @@ DataAccess.prototype.addOrUpdateExams=(exam, callback)=>{
         })
     })
 };
+
