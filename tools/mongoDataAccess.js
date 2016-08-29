@@ -59,7 +59,8 @@ DataAccess.prototype.addOrUpdateUser=(user,callback)=>{
                 f_name:user.f_name,
                 l_name:user.l_name,
                 email:user.email,
-                batch:user.batch
+                batch:user.batch,
+                password:user.password
             };
             client.connect(url,(err,db)=>{
                 db.collection('user').save(newUser,(err)=>{
@@ -205,4 +206,3 @@ DataAccess.prototype.addOrUpdateExams=(exam, callback)=>{
         })
     })
 };
-
