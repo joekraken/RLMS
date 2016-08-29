@@ -1,9 +1,12 @@
 {
-  "_id":
-  "topic":[],
-  "question":"",
-  "correct":"",
-  "options":[],
-  "weight":"",
-  "type":""
+  "topic":"",
+  "questions":[
+    {
+      "id":"",
+      "ques":"",
+      "ans":"",
+      "weight":"",
+      "options":[]
+    }
+  ]
 }
