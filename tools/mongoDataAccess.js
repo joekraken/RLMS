@@ -87,7 +87,7 @@ DataAccess.prototype.getForums=(batchName,callback)=>{//todo
             cursor = db.collection('forum').find();
         }
         var result = [];
-        cusor.each((err,doc)=>{
+        cursor.each((err,doc)=>{
             if(doc){
                 result.push(doc);
             }else{
@@ -107,12 +107,12 @@ DataAccess.prototype.addOrUpdateForums=(forum,callback)=>{
       description:forum.description,
       posts:forum.posts,
     };
-    if(form){
+    if(forum){
         DataAccess.prototype.getForums(newForm.batchName,(result)=>{
             if(result.length > 0 )
             {newForm._id = result[0]._id;
             }else{
-                client.open(url,(err,db)=>{
+                client.connect(url,(err,db)=>{
                     db.collection('forum').save(newForm,(err)=>{
 
                         if(!err){
