@@ -2,11 +2,11 @@ var exports = module.exports = DataAccess;
 
 function DataAccess()
 {
+    //declared the constructor and the client/url values.
     DataAccess.prototype.MongoClient =  require('mongodb').MongoClient;
     DataAccess.prototype.url= 'mongodb://rlms:rlmsreact@ds017636.mlab.com:17636/rlms';
 }
-// username can be null, but you need to pass in null.
-// if username is null, all users are returned.
+// if username is null, get all users. Result is passed in callback!
 DataAccess.prototype.getUsers =(username,callback)=>{
 
 
@@ -34,15 +34,14 @@ DataAccess.prototype.getUsers =(username,callback)=>{
             }
     });
 };
-// as stated, this allows for users to be added or updated.
-//passes the result into a callback
+// check if user exists, if not insert new user, else update old user.
 DataAccess.prototype.addOrUpdateUser=(user,callback)=>{
     var client = DataAccess.prototype.MongoClient;
     var url = DataAccess.prototype.url;
     var other =[];
     // attempt to get the user. If the use exists, make it fail.
     DataAccess.prototype.getUsers(user.username,(result)=>{
-
+        // get the ID of the first result.
         if(result != []){
             console.log(result);
             user._id = result[0]._id;
@@ -74,6 +73,7 @@ DataAccess.prototype.addOrUpdateUser=(user,callback)=>{
 
 
 };
+// get forums related to batchname, if null return all.
 DataAccess.prototype.getForums=(batchName,callback)=>{//todo
     var client = DataAccess.prototype.MongoClient;
     var url = DataAccess.prototype.url;
@@ -97,6 +97,7 @@ DataAccess.prototype.getForums=(batchName,callback)=>{//todo
 
 
 };
+//... same as previous update method.
 DataAccess.prototype.addOrUpdateForums=(forum,callback)=>{
     var client = DataAccess.prototype.MongoClient;
     var url = DataAccess.prototype.url;
@@ -126,6 +127,7 @@ DataAccess.prototype.addOrUpdateForums=(forum,callback)=>{
         console.log('cannot insert a null value into the database');
     }
  };
+
 DataAccess.prototype.getLessons=(lessonName,callback)=>{
     var client = DataAccess.prototype.MongoClient;
     var url = DataAccess.prototype.url;
@@ -168,7 +170,8 @@ DataAccess.prototype.addOrUpdateLessons=(lesson,callback)=>{
 
 
 };
-DataAccess.prototype.getExams=(exam,callback)=>{
+// exam doesn't accept an exam name. Always returns all questions.
+DataAccess.prototype.getExams=(callback)=>{
     var client = DataAccess.prototype.MongoClient;
     var  url = DataAccess.prototype.url;
     client.open(url,(err,db)=>{
@@ -182,6 +185,7 @@ DataAccess.prototype.getExams=(exam,callback)=>{
 
     })
 };
+// add exam to database. Callback provides result.
 DataAccess.prototype.addOrUpdateExams=(exam, callback)=>{
     var client = DataAccess.prototype.MongoClient;
     var  url = DataAccess.prototype.url;
