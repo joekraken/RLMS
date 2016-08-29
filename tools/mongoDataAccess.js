@@ -87,7 +87,7 @@ DataAccess.prototype.getForums=(batchName,callback)=>{//todo
             cursor = db.collection('forum').find();
         }
         var result = [];
-        cusor.each((err,doc)=>{
+        cursor.each((err,doc)=>{
             if(doc){
                 result.push(doc);
             }else{
