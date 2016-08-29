@@ -42,8 +42,9 @@ DataAccess.prototype.addOrUpdateUser=(user,callback)=>{
     // attempt to get the user. If the use exists, make it fail.
     DataAccess.prototype.getUsers(user.username,(result)=>{
         // get the ID of the first result.
-        if(result != []){
+        if(result.length > 0 ){
             console.log(result);
+
             user._id = result[0]._id;
 
     }
@@ -108,7 +109,7 @@ DataAccess.prototype.addOrUpdateForums=(forum,callback)=>{
     };
     if(form){
         DataAccess.prototype.getForums(newForm.batchName,(result)=>{
-            if(result !=[])
+            if(result.length > 0 )
             {newForm._id = result[0]._id;
             }else{
                 client.open(url,(err,db)=>{
@@ -150,7 +151,7 @@ DataAccess.prototype.addOrUpdateLessons=(lesson,callback)=>{
     var url = DataAccess.prototype.url;
     client.open((err,db)=>{
         DataAccess.prototype.getLessons(lesson.batchName,(result)=>{
-            if(result !=[]){
+            if(result.length > 0 ){
                 lesson._id = result[0]._id;
             }
             var newLesson = {
@@ -186,6 +187,7 @@ DataAccess.prototype.getExams=(callback)=>{
     })
 };
 // add exam to database. Callback provides result.
+
 DataAccess.prototype.addOrUpdateExams=(exam, callback)=>{
     var client = DataAccess.prototype.MongoClient;
     var  url = DataAccess.prototype.url;
