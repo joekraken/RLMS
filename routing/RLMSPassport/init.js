@@ -4,6 +4,7 @@ var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 var session = require('express-session');
 var cookie = require('cookie-parser');
+var mon = require('../../tools/mongoDataAccess.js');
 
 var user = [
   {
@@ -26,6 +27,13 @@ var user = [
     }
 ];
 
+app.get('/testGet', function(req, res){
+  var da = new mon();
+  da.getUsers(null, function(result){
+    res.json(result);
+  });
+});
+
 app.use(cookie('itsASecretToEveyone'));
 app.use(session({
   secret:'itsASecretToEveyone', 
@@ -46,21 +54,28 @@ passport.deserializeUser(function(sessionUser, cb){
 });
 
 function findUser(name, callback){
-  for(var i = 0; i < user.length; i++){
-    if(user[i].username == name){
-      return callback(null, user[i]);
+  
+  var da = new mon();
+  da.getUsers(name, function(result){
+    if(result.length > 0){
+     return callback(null, result[0]); 
+    } else{
+      return callback(null, false);
     }
-  }
-  return callback(null, false);
+  });
 }
 
 function findUserByID(id, callback){
-  for(var i = 0; i < user.length; i++){
-    if(user[i].ID == id){
-      return callback(null, user[i]);
+  
+  var da = new mon();
+  da.getUsers(null, function(userList){
+      for(var i = 0; i < userList.length; i++){
+    if(userList[i].ID == id){
+      return callback(null, userList[i]);
     }
   }
   return callback(null, false);
+  });
 }
 
 passport.use(new localStrategy({
