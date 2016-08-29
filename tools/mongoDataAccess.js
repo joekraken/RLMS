@@ -107,9 +107,8 @@ DataAccess.prototype.addOrUpdateForums=(forum,callback)=>{
     };
     if(form){
         DataAccess.prototype.getForums(newForm.batchName,(result)=>{
-            if(result)
-            {
-                newForm._id = result[0]._id;
+            if(result !=[])
+            {newForm._id = result[0]._id;
             }else{
                 client.open(url,(err,db)=>{
                     db.collection('forum').save(newForm,(err)=>{
@@ -149,7 +148,7 @@ DataAccess.prototype.addOrUpdateLessons=(lesson,callback)=>{
     var url = DataAccess.prototype.url;
     client.open((err,db)=>{
         DataAccess.prototype.getLessons(lesson.batchName,(result)=>{
-            if(result){
+            if(result !=[]){
                 lesson._id = result[0]._id;
             }
             var newLesson = {
@@ -186,6 +185,14 @@ DataAccess.prototype.getExams=(exam,callback)=>{
 DataAccess.prototype.addOrUpdateExams=(exam, callback)=>{
     var client = DataAccess.prototype.MongoClient;
     var  url = DataAccess.prototype.url;
+    var newExam = {
+        topic: exam.topic,
+        questions: exam.questions,
+        correct:exam.correct,
+        options:exam.options,
+        weight:exam.weight,
+        type:exam.type
+    };
     client.connect((err,db)=>{
         db.collection('exams').save(exam,(err)=>{
             if(!err){callback('success')}
