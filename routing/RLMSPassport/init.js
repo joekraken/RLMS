@@ -3,6 +3,7 @@ var app = express.Router();
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 var session = require('express-session');
+var cookie = require('cookie-parser');
 
 var user = [
   {
@@ -25,16 +26,23 @@ var user = [
     }
 ];
 
-app.use(session({secret:'itsASecretToEveyone'}));
+app.use(cookie('itsASecretToEveyone'));
+app.use(session({
+  secret:'itsASecretToEveyone', 
+  saveUninitialized: true,
+  resave: false,
+  cookie: {path: '/user', httpOnly: true, maxAge: 5000}
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser(function(user, cb){
-  cb(null, user.ID);
+passport.serializeUser(function(userData, cb){
+  var sessionUser = {_id: userData.ID, name: userData.username}
+  cb(null, sessionUser);
 });
 
-passport.deserializeUser(function(id, cb){
-  findUserByID(id, cb);
+passport.deserializeUser(function(sessionUser, cb){
+  findUserByID(sessionUser.ID, cb);
 });
 
 function findUser(name, callback){
