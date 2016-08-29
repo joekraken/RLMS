@@ -49,7 +49,10 @@ DataAccess.prototype.addOrUpdateUser=(user,callback)=>{
     var other =[];
     // attempt to get the user. If the use exists, make it fail.
     DataAccess.prototype.getUsers(user.username,(result)=>{
-        if(user && !result)
+        if(result){
+            user._id = result._id;
+        }
+        if(user)
         {
             // ceraete the structure for the inserted datea
             var newUser = {
@@ -116,13 +119,14 @@ DataAccess.prototype.addOrUpdateForums=(forum,callback)=>{
         DataAccess.prototype.getForums(newForm.batchName,(result)=>{
             if(result)
             {
-                console.log('Ca')
+                newForm._id = result._id;
             }else{
                 client.open(url,(err,db)=>{
                     db.collection('forum').save(newForm,(err)=>{
 
                         if(!err){
                             console.log('Entry successfully added to the database');
+                            callback('Entry successfully added');
                         }
 
                     })
@@ -133,106 +137,63 @@ DataAccess.prototype.addOrUpdateForums=(forum,callback)=>{
         console.log('cannot insert a null value into the database');
     }
  };
-DataAccess.prototype.getLessons=()=>{
+DataAccess.prototype.getLessons=(lessonName,callback)=>{
     var client = DataAccess.prototype.MongoClient;
     var url = DataAccess.prototype.url;
-    //todo
+    if(lessonName){
+        client.connect((err,db)=>{
+            var cursor = db.collection('lesson').find({curriculum:lessonName});
+            var temp =[];
+            cursor.each((err,doc)=> {
+                if(doc){
+                    temp.push(doc);
+                }else{
+                    callback(temp);
+                }
+            })
+        })
+    }
+    client.connect((err,db)=>{
+        var cursor = db.collection('lessons').find();
+        var temp=[];
+        cursor.each((err,doc)=>{
+            if(doc){
+                temp.push(doc);
+            }else{
+                callback(temp);
+            }
+        })
+    })
+
+
 };
-DataAccess.prototype.addOrUpdateLessons=()=>{//todo
+DataAccess.prototype.addOrUpdateLessons=(lesson,callback)=>{
+    var client = DataAccess.prototype.MongoClient;
+    var url = DataAccess.prototype.url;
+    client.open((err,db)=>{
+        DataAccess.prototype.getLessons(lesson.batchName,(result)=>{
+            if(result){
+                lesson._id = result._id;
+            }
+            var newLesson = {
+                _id:lesson._id,
+                curriculum:lesson.curriculum,
+                title:lesson.title,
+                week:lesson.week,
+                topic:lesson.topic
+            };
+            db.collection('lesson').save(newLesson,(err)=>{
+               if(err){console.log(err)}
+               else{callback('Success')}
+            });
+
+        })
+    })
+
+
 };
-DataAccess.prototype.getExams=()=>{//todo
+DataAccess.prototype.getExams=(exam,callback)=>{//todo
 };
 DataAccess.prototype.addOrUpdateExams=()=>{//todo
 };
 
-
-// var exports = module.exports = {
-//
-//     DataAccess: ()=>{
-//         var Db = require('mongodb').Db,
-//             MongoClient= require('mongodb').MongoClient,
-//             Server = require('mongodb').Server,
-//             ObjectID = require('mongodb').ObjectID;
-//         var db = new Db('test',new Server('localhost',27017));
-//          this.getUser = (user,callback)=>{
-//             db.open((err,db)=>{
-//                 if(user){}
-//                 else{
-//                    var cursor= db.collection('user').find();
-//                     var result=[];
-//                     cursor.each((err,doc)=>{
-//                         if(doc){result.push(doc)}else{callback(result)}
-//                     });
-//                 }
-//             });
-//         }
-//
-//
-//     }
-//
-// };
-// module.exports = exports;
-//
-//
-//
-//
-//
-//
-// //Connects to database, and spits out an array of person.
-// // exports.GetUsers = (username,callback) => {
-// //     var result = [];
-// //     initMe((db)=> {
-// //         db.open((err, db)=> {
-// //         if(username){
-// //             var result = [];
-// //             var cursor = db.collection('user').find({"username":username});
-// //             cursor.each((err,doc)=>{
-// //                 if(doc){
-// //                     result.push(doc);
-// //                 }else{callback(result)}
-// //             });
-// //
-// //         }else{
-// //            var result=[];
-// //            var cursor = db.collection('user').find();
-// //             cursor.each((err,doc)=>{
-// //                 if(doc){
-// //                     result.push(doc);
-// //                 }else{callback(result)}
-// //             })
-// //         }
-// //         });
-// //     });
-// //     exports.AddPerson = (person, callback) => {
-// //         var result = [];
-// //         initMe((db)=> {
-// //             db.open((err, db)=> {
-// //                 db.collection('person').updateOne({name: person.Name}, {upsert: true}, {
-// //                     $inc: {
-// //                         "Name": person.Name,
-// //                         "Occupation": person.Occupation
-// //                     }
-// //                 }, (err, result)=> {
-// //                     if (!err) {
-// //                         db.close();
-// //                         callback(true);
-// //                     } else(console.log(err));
-// //
-// //                 });
-// //
-// //             })
-// //         })
-// //     };
-// // };
-// // exports.AddOrUpdateUser= (username,callback)=>{
-// //   initMe((db)=>{
-// //       var oldUser;
-// //       var
-// //       exports.GetUsers(username,(data)=>{oldUser = data});
-// //
-// //   })
-// // };
-// //
-// // function initMe(callback){
-// //   callback(new Db('test',new Server('localhost',27017)));
-// // }

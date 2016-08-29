@@ -33,7 +33,7 @@ var myDa = new DA();
     var user = {
         username:'Alex'
     };
-    myDa.addOrUpdateUser(user,(result)=>{console.log(result)})
+    myDa.addOrUpdateUser(user,(result)=>{console.log(result)});
    //myDa.getUsers('Alex',(result)=>{console.log(result)})
 });
 app.use(function(req,res){
