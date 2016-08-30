@@ -11,14 +11,13 @@ var express = require('express'),
     gutil = require('gulp-util'),
     webpackConfig =require(configDir);
     compiler=webpack(webpackConfig);
-<<<<<<< HEAD
+
 
 var basicRouter = require('./routing/RLMSTesting.js');
 app.use('/api',basicRouter);
 
-=======
 var DA = require('./tools/mongoDataAccess.js');
->>>>>>> master
+
 app.use(webpackDevMiddleware(compiler, {
     hot: true,
     filename: '[name].js',
