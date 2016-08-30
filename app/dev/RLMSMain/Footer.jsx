@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
 
 class Footer extends React.Component{
     render (){
