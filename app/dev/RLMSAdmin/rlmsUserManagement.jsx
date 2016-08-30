@@ -1,6 +1,140 @@
 import React from 'react';
 
 class UserManagement extends React.Component {
+  constructor(){
+    super();
+    this.props = { "users": [
+        {
+          "username":"DPickles",
+          "id":1,
+          "is_admin":1,
+          "is_active":1,
+          "f_name":"Dan",
+          "l_name":"Pickles",
+          "email":"d.p@gmail.com",
+          "batch":{
+            "name":null,
+            "grades":[{
+              "score":null,
+              "exam":null
+            }]
+          }
+        },
+        {
+          "username":"BA",
+          "id":2,
+          "is_admin":1,
+          "is_active":1,
+          "f_name":"Ben",
+          "l_name":"Adams",
+          "email":"ben@gmail.com",
+          "batch":{
+            "name":null,
+            "grades":[{
+              "score":null,
+              "exam":null
+            }]
+          }
+        },
+        {
+          "username":"parker",
+          "id":3,
+          "is_admin":0,
+          "is_active":1,
+          "f_name":"Peter",
+          "l_name":"Parker",
+          "email":"pp@mail.web",
+          "batch":{
+            "name":null,
+            "grades":[{
+              "score":null,
+              "exam":null
+            }]
+          }
+        },
+        {
+          "username":"tm",
+          "id":4,
+          "is_admin":1,
+          "is_active":0,
+          "f_name":"Tony",
+          "l_name":"Manning",
+          "email":"tm@gmail.com",
+          "batch":{
+            "name":null,
+            "grades":[{
+              "score":null,
+              "exam":null
+            }]
+          }
+        },
+        {
+          "username":"JD",
+          "id":5,
+          "is_admin":0,
+          "is_active":1,
+          "f_name":"John",
+          "l_name":"Doe",
+          "email":"jd@gmail.com",
+          "batch":{
+            "name":null,
+            "grades":[{
+              "score":null,
+              "exam":null
+            }]
+          }
+        },
+        {
+          "username":"CF",
+          "id":6,
+          "is_admin":0,
+          "is_active":1,
+          "f_name":"Connor",
+          "l_name":"Funk",
+          "email":"cf@gmail.com",
+          "batch":{
+            "name":null,
+            "grades":[{
+              "score":null,
+              "exam":null
+            }]
+          }
+        },
+        {
+          "username":null,
+          "id":null,
+          "is_admin":null,
+          "is_active":null,
+          "f_name":null,
+          "l_name":null,
+          "email":null,
+          "batch":{
+            "name":"Java 100",
+            "grades":[{
+              "score":null,
+              "exam":null
+            }]
+          }
+        },
+        {
+          "username":null,
+          "id":null,
+          "is_admin":null,
+          "is_active":null,
+          "f_name":null,
+          "l_name":null,
+          "email":null,
+          "batch":{
+            "name":".NET 101",
+            "grades":[{
+              "score":null,
+              "exam":null
+            }]
+          }
+        }
+      ]
+    }
+  }
   render() {
     return (
       <div>
@@ -9,12 +143,10 @@ class UserManagement extends React.Component {
         </header>
         <section style={{paddingLeft: 30, paddingRight: 30}}>
           <div id="filters">
-            <div style={{}}>
-              <div className="input-group">
-                <div className="input-group-addon">Filter
-                  Users:</div>
-                <input className="form-control" type="text" />
-              </div>
+            <div className="input-group">
+              <div className="input-group-addon">Filter
+                Users:</div>
+              <input className="form-control" type="text" />
             </div>
           </div>
         </section>
@@ -31,13 +163,21 @@ class UserManagement extends React.Component {
                 </tr>
               </thead>
               {/* loop through all users and display them here */}
-              <tbody><tr>
+              <tbody>
+                {/*<tr>*/}
                   {/* hidden will be user id */}
-                  <td>{'{'}fn{'}'}</td>
-                  <td>{'{'}usn{'}'}</td>
-                  <td className="centered"><input type="checkbox" name="admin" /></td>
-                  <td className="centered"><input type="checkbox" name="active" defaultChecked /></td>
-                </tr>
+                  {/*
+                    <td>{'{'}fn{'}'}</td>
+                    <td>{'{'}usn{'}'}</td>
+                    <td className="centered"><input type="checkbox" name="admin" /></td>
+                    <td className="centered"><input type="checkbox" name="active" defaultChecked /></td>
+                    */}
+                    {
+                      /*let rows = this.state.users.map(user => {
+                      return <UserRow users={user} />
+                    })*/
+                  }
+                {/*</tr>*/}
               </tbody></table>
             <input id="modify-user-submit" className="btn btn-primary btn-md" type="submit" defaultValue="Confirm User Modifications" />
           </form>
@@ -45,6 +185,17 @@ class UserManagement extends React.Component {
       </div>
     );
   }
+}
+
+const UserRow = (props) => {
+  return (
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  )
 }
 
 export default UserManagement
