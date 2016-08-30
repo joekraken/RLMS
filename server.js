@@ -11,7 +11,22 @@ var express = require('express'),
     gutil = require('gulp-util'),
     webpackConfig =require(configDir);
     compiler=webpack(webpackConfig);
+
+
+
+var basicRouter = require('./routing/RLMSTesting.js');
+app.use('/api',basicRouter);
+
 var DA = require('./tools/mongoDataAccess.js');
+
+
+var login = require('./routing/RLMSPassport/sRoutes');
+app.use('/api', login);
+
+var DA = require('./tools/mongoDataAccess.js');
+
+var RLMSForum = require('./routing/RLMSForum.js');
+app.use("",RLMSForum);
 app.use(webpackDevMiddleware(compiler, {
     hot: true,
     filename: '[name].js',
@@ -28,14 +43,6 @@ app.use(webpackHotMiddleware(compiler, {
     heartbeat: 10 * 1000,
 }));
 app.use(express.static('app/public'));
-app.get('/stuff',(req,res)=>{
-var myDa = new DA();
-    var user = {
-        username:'Alex'
-    };
-    myDa.addOrUpdateUser(user,(result)=>{console.log(result)});
-   //myDa.getUsers('Alex',(result)=>{console.log(result)})
-});
 app.use(function(req,res){
     res.status(404);
     res.end("The requested document doesn't exist");

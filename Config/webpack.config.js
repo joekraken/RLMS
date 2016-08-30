@@ -10,12 +10,12 @@ var config ={
     plugins:[
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin(),
-        new webpack.optimize.CommonsChunkPlugin({
-          name: 'common',
-          filename: 'rlmsCommon.js',
-          minChunks: 2
-        })
+        new webpack.NoErrorsPlugin()
+        // new webpack.optimize.CommonsChunkPlugin({
+        //   name: 'common',
+        //   filename: 'rlmsCommon.js',
+        //   minChunks: 2
+        // })
         //new webpack.optimize.UglifyJsPlugin()
     ],
     entry:{
@@ -50,7 +50,13 @@ var config ={
 
         ]
 
-    }
+    },
+    externals: {
+    'cheerio': 'window',
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true,
+    'react/addons': true,
+  }
 
 
 
