@@ -27,7 +27,6 @@ var DA = require('./tools/mongoDataAccess.js');
 
 var RLMSForum = require('./routing/RLMSForum.js');
 app.use("",RLMSForum);
->>>>>>> 971d5a65aed72cdc2b34b0853f31172e89d6a0b6
 app.use(webpackDevMiddleware(compiler, {
     hot: true,
     filename: '[name].js',
