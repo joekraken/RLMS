@@ -9,15 +9,9 @@ class ApiEater extends React.Component{
     componentWillMount(){
         var url="http://localhost:3000/api/getBasic";
         Request.get(url).then(result =>{
-          //console.log(result);
             var json = JSON.parse(result.text);
-            //console.log(json);
             this.setState({data:json});
-            //console.log(this.state.data[0]);
         })
-    }
-    componentDidMount(){
-        //console.log("has mounted");
     }
     render(){
         if(this.state.data){
