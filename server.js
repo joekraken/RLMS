@@ -11,6 +11,13 @@ var express = require('express'),
     gutil = require('gulp-util'),
     webpackConfig =require(configDir);
     compiler=webpack(webpackConfig);
+
+    
+var login = require('./routing/RLMSPassport/sRoutes');
+app.use('/api', login);
+
+var DA = require('./tools/mongoDataAccess.js');
+
 var RLMSForum = require('./routing/RLMSForum.js');
 app.use("",RLMSForum);
 app.use(webpackDevMiddleware(compiler, {
