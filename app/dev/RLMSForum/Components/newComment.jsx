@@ -24,8 +24,7 @@ export default class NewComment extends React.Component{
         return(
             <div>
                 <input type="text" className="form-control" placeholder="comment" ref="stuff" onChange={this.OnChangeEvent.bind(this)}/>
-                <p>{this.state.value}</p>
-                <button onClick={this.onClick.bind(this)} className="pull-right">Click to submit</button>
+                <button className="btn btn-primary pull-right commentButton" onClick={this.onClick.bind(this)}>Click to submit</button>
             </div>
         )
     }

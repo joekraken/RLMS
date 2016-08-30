@@ -9,33 +9,62 @@ export default class Blog extends React.Component{
     {
         super();
         this.state={};
-
+        this.getData.bind(this);
     }
     doStuff(stuff){
+
         var posts = this.state.data[0].posts;
+        var now =  new Date();
+        var min;
+        if(now.getMinutes() <10)
+        {
+
+            min = "0" + now.getMinutes();
+        }else{min =now.getMinutes()}
         var newPost = {
             username: "[placeholder]",
-            comment: stuff
+            comment: stuff,
+            timestamp: now.getDay() + "/" +now.getMonth()+ '/' + now.getFullYear() + " " + now.getHours() + ":" + min
         };
-        posts.unshift(newPost);
-         var x = this.state.data[0].posts;
-        console.log(posts);
+        if(posts)
+        {
+            posts.unshift(newPost);
+            this.state.data[0].posts = posts;
+        }
+        else{
+            var tempArray =[];
+            tempArray.push(newPost);
+            var x = this.state.data[0].posts = tempArray;
+        }
+
         Request.post('http://localhost:3000/postForum').send(this.state.data[0]).end(function(err,res){
             if(err){console.log(err)}
-            else{console.log(res.text)}
+
         });
         this.forceUpdate();
 
-    }
+    }getData(isTimer)
+    {
 
-    componentWillMount(){
         var url = 'http://localhost:3000/getForum';
         Request.get(url).then(result =>{
 
-            this.setState({data:JSON.parse(result.text)});
-            this.forceUpdate();
+            if(isTimer){
+                isTimer.setState({data:JSON.parse(result.text)});
+            }else {
+                this.setState({data: JSON.parse(result.text)});
+            }
 
-        })
+        });
+
+
+}
+    componentWillMount(){
+    this.getData()
+
+    }
+    componentDidMount(){
+        this.timer = setInterval(()=>{this.getData(this)},15000);
     }
 
     render(){
@@ -46,9 +75,13 @@ export default class Blog extends React.Component{
             let blogs = this.state.data.map((item,i) =>
             {
                 //console.log(item);
-                var comments = item.posts.map((stuff,k) => {
-                    return <Comment key = {k} data={stuff}></Comment>
-                });
+                if(posts) {
+                    this.comments = item.posts.map((stuff, k) => {
+                        return <Comment key={k} data={stuff}></Comment>
+                    });
+                }else {
+                    console.log(item);
+                }
                 return(
                     <div className="col-sm-6 col-sm-offset-3 header">
 
@@ -59,14 +92,12 @@ export default class Blog extends React.Component{
                         <hr/>
                         <p className="Desc">{item.description}</p>
                         <NewComment doStuff={this.doStuff.bind(this)}></NewComment>
-                        <hr/>
-                        {comments}
-
+                        <hr id="dividerComments"/>
+                        {this.comments}
 
                     </div>
                 )
             });
-            console.log(blogs);
             return(
                 <div>
                     {blogs}
@@ -86,7 +117,7 @@ const Comment = (props) => {
             <div className="row comments">
                 <span id="status">
                     <p className="col-sm-6">{props.data.username}</p>
-                    <p className="col-sm-6">{props.data.TimeStamp}</p>
+                    <p className="col-sm-6">{props.data.timestamp}</p>
                 </span>
             </div>
 
