@@ -138,7 +138,7 @@ DataAccess.prototype.getLessons=(lessonName,callback)=>{
     var cursor;
     client.connect(url, (err,db)=>{
         if(lessonName) {
-            cursor = db.collection('lesson').find({lessonName:lessonName});
+            cursor = db.collection('lesson').find({curriculum:lessonName});
         }else{
             cursor = db.collection('lesson').find();
         }

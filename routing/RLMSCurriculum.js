@@ -12,4 +12,13 @@ router.get('/getLesson',function(req,res){
     });
 });
 
+router.get('/getLesson/:batchName',function(req,res){
+    var da = new DataAccess;
+    da.getLessons(req.params.batchName,(result)=>{
+        res.status(200);
+        res.json(result);
+    });
+});
+
+
 module.exports = router;

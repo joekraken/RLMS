@@ -66,6 +66,9 @@ export default class Blog extends React.Component{
         console.log(url);
         let stuff = Request.get(url).then((result)=>{
             this.setState({batch:JSON.parse(result.text)[0].batch});
+
+            sessionStorage.setItem("batchName", this.state.batch.batchName);
+            //console.log(sessionStorage.getItem('batchName'));
             this.getForum(this.state.batch.batchName,this.timer);
             })
 

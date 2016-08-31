@@ -11,22 +11,39 @@ var Curriculum = React.createClass({
     };
   },
    componentWillMount() {
-    var url = 'http://localhost:3000/getLesson';
+       if(sessionStorage.getItem('batchName')){
+           var b = sessionStorage.getItem('batchName').split('-')[2];
+           if(b=="NET"){
+               b=".NET";
+           }
+           console.log(b);
+              var url = 'http://localhost:3000/getLesson/' + b;
+              //var url = 'http://localhost:3000/getLesson/.Net';
     
     this.serverRequest = Request.get(url).end(function(err,result){
         this.setState({
             data:JSON.parse(result.text)
         });       
-  }.bind(this));},
+  }.bind(this));
+       }
+       else{
+           console.log('no batch');
+       }
+},
    componentWillUnmount: function() {
-    this.serverRequest.abort();
+    //this.serverRequest.abort();
   },
     render () {
         if(this.state.data == null || this.state.data == undefined){
-            return <p></p>
+            return(
+                <div className="text-center">
+                    <h1>You are not assigned to a batch!</h1>
+                    <p>If you're recieving this message in error, please contact your trainer.</p>
+                </div>
+            ) 
         }
-        else{
-            var hstyle = {'text-align':'center'};
+        else if(sessionStorage.getItem('batchName')){
+           var hstyle = {'text-align':'center'};
             return(
                 <div>
                     <h1 style={hstyle}>{this.state.data[0].curriculum}</h1>
@@ -40,6 +57,14 @@ var Curriculum = React.createClass({
                     })}
                 </div>
             );
+        }
+        else{
+            return(
+                <div className="text-center">
+                    <h1>You are not assigned to a batch!</h1>
+                    <p>If you're recieving this message in error, please contact your trainer.</p>
+                </div>
+            )            
         }
     }
 });
