@@ -4,17 +4,15 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import App from './App.jsx'
 import User from './digest.jsx'
 import Home from './home.jsx'
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 import Forum from '../RLMSForum/Components/Blog.jsx'
-=======
+
 import Login from '../RLMSLogin/RLMSLogin.jsx'
 import Signup from '../RLMSLogin/RLMSSignup.jsx';
 import Exam from '../RLMSExam/examComponent.jsx';
->>>>>>> 87d485ec7987a64b56272b6383108b0ed3b46b11
-=======
+
 import Curriculum from '../RLMSCurriculum/index.jsx'
->>>>>>> origin/testing
+
 
 render((
     //////////////////////////////
@@ -42,12 +40,12 @@ render((
             <Route path="/home" component={Home}>
                 <Route path="/home/admin" component={Home}/>
                 <Route path="/home/curriculum" component={Curriculum}/>
-                <Route path="/home/exam" component={Home}/>
-                <Route path="/home/forum" component={Forum}/>
                 <Route path="/home/exam" component={Exam}/>
+                <Route path="/home/forum" component={Forum}/>
                 <Route path="/home/forum" component={Home}/>
                 <Route path="/home/user" component={Home}/>
             </Route>
+            <Route path="/logout" component={Login}/>
         </Route>
     </Router>
 ),document.getElementById('app'))
