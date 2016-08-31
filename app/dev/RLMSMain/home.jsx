@@ -35,12 +35,11 @@ export default class Home extends React.Component{
             <div className="container" style={containerFix}>
                 <div style={left} className="well">
                     <div role="nav" className="list-group" style={nav}>
-
-                        <NavLink to="/user" className="list-group-item">User</NavLink>
-                        <NavLink to="/repo" className="list-group-item">Repo</NavLink>
+                        
                         <NavLink to="/home/Forum" className="list-group-item">Forum</NavLink>
                         <NavLink to="/home/exam" className="list-group-item">Exam</NavLink>
                         <br/>
+                        <NavLink to="/home/profile" className="list-group-item">Profile</NavLink>
                         <NavLink to="/home/curriculum" className="list-group-item">Syllabus</NavLink>
                         <br/>
                         <br/>
