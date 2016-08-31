@@ -1,37 +1,45 @@
 import React from 'react';
 import {render} from 'react-dom';
-import Requset from 'superagent';
+import Request from 'superagent';
 
-class LoginApp extends React.Component{
-  constructor(){
-    super();
-    this.state = {};
-  }
-  
+class LoginApp extends React.createClass({
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+  reg: function(){
+    this.context.router.push('/signUp');
+  },
+
   render(){
-    return <LoginForm/>;
+    return (
+      <div className="text-center">
+        <LoginForm data={this.reg}/>
+      </div>      
+      );
   }
-}
+}){}
 
 const LoginForm = (props) =>{
   return (
-    <div>
+    <div id="registerDiv" className="row col-sm-8 col-sm-offset-2">
+    <span className="form-control text-center">
     <h1><p>Welcome to RLMS</p></h1>
     <h2>Login</h2>
     
     <form action="/api/login" method="post">
       <label>Username: </label>
-      <input type="text" name="username" id="username"></input>
+      <input type="text" className="form-control col-sm-6" name="username" id="username"></input><br/>
       <label>Password: </label>
-      <input type="password" name="password" id="password"></input>
-      <button type="submit">LogIn</button>
+      <input type="password" className="form-control col-sm-6" name="password" id="password"></input><br/>
+      <button type="submit" className="btn btn-primary col-sm-2">LogIn</button>
+      <button type="button" className="btn btn-info col-sm-2 pull-right" onClick={props.data}>Sign Up</button>
       </form>
-    
+      </span>
     </div>
   );
 }
 
-render(<LoginApp/>, document.getElementById("temp"));
+export default LoginApp;
 
 if(module.hot){
   module.hot.accept();

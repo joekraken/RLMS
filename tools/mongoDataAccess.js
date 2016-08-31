@@ -132,7 +132,6 @@ DataAccess.prototype.addOrUpdateForums=(forum,callback)=>{
         console.log('cannot insert a null value into the database');
     }
  };
-
 DataAccess.prototype.getLessons=(lessonName,callback)=>{
     var client = DataAccess.prototype.MongoClient;
     var url = DataAccess.prototype.url;
@@ -177,12 +176,13 @@ DataAccess.prototype.addOrUpdateLessons=(lesson,callback)=>{
 
 };
 // exam doesn't accept an exam name. Always returns all questions.
+
 DataAccess.prototype.getExams=(callback)=>{
     var client = DataAccess.prototype.MongoClient;
     var  url = DataAccess.prototype.url;
-    client.open(url,(err,db)=>{
+    client.connect(url,(err,db)=>{
         var result =[];
-        var cursor =db.collection('exams').find();
+        var cursor =db.collection('exam').find();
         cursor.each((err,doc)=>{
             if(doc){
                 result.push(doc);
@@ -202,7 +202,7 @@ DataAccess.prototype.addOrUpdateExams=(exam, callback)=>{
 
     };
     client.connect((err,db)=>{
-        db.collection('exams').save(exam,(err)=>{
+        db.collection('exam').save(exam,(err)=>{
             if(!err){callback('success')}
         })
     })

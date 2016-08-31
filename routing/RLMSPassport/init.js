@@ -28,10 +28,7 @@ var user = [
 ];
 
 app.get('/testGet', function(req, res){
-  var da = new mon();
-  da.getUsers(null, function(result){
-    res.json(result);
-  });
+   res.json(data.getData());
 });
 
 app.use(cookie('itsASecretToEveyone'));
@@ -58,6 +55,15 @@ function findUser(name, callback){
   var da = new mon();
   da.getUsers(name, function(result){
     if(result.length > 0){
+      
+    //   var item = {
+    //     ID: result[0].id,
+    //     firstname: result[0].f_name,
+    //     lastname: result[0].l_name,
+    //     batch: result[0].batch
+    //   };
+                     
+    //  localStorage.setItem('userObj', item);
      return callback(null, result[0]); 
     } else{
       return callback(null, false);

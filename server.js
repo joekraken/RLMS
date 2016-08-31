@@ -12,13 +12,15 @@ var express = require('express'),
     webpackConfig =require(configDir);
     compiler=webpack(webpackConfig);
 
-
-
+var userRouter  = require('./routing/RLMSGetUsers.js');
+app.use('',userRouter);
 var basicRouter = require('./routing/RLMSTesting.js');
 app.use('/api',basicRouter);
 
 var DA = require('./tools/mongoDataAccess.js');
 
+var RLMSExam = require('./routing/RLMSExam.js');
+app.use("", RLMSExam);
 
 var login = require('./routing/RLMSPassport/sRoutes');
 app.use('/api', login);
@@ -39,7 +41,6 @@ app.use(webpackDevMiddleware(compiler, {
     },
     historyApiFallback: true,
 }));
-
 app.use(webpackHotMiddleware(compiler, {
     log: console.log,
     path: '/__webpack_hmr',
