@@ -6,9 +6,14 @@ import User from './digest.jsx';
 
 export default class Header extends React.Component{
     render(){
+        var name = sessionStorage.getItem("username");
         var leftNav ={
             paddingTop: '28px'
         }
+        var logo={
+            height:'20px',
+            width:'20px'
+        };
         const userNav={
             color:"white",
             textDecoration :'none'
@@ -23,7 +28,7 @@ export default class Header extends React.Component{
             </Navbar.Header>
             <Navbar.Collapse >
                 <Nav pullRight>
-                    <NavLink to="/home/user" style={userNav}></NavLink>
+                    <NavLink to="/home/profile" style={userNav}>{name}&nbsp;&nbsp;<img style={logo} src=""/></NavLink>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>)
