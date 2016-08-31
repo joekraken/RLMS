@@ -9,16 +9,15 @@ class SignUpApp extends React.createClass({
   ret: function(){
     this.context.router.push('/login');
   },
+  btnAlign:{
+    marginTop: '1em'
+  },
     
   componentWillMount(){
     sessionStorage.clear();
   },
   render(){
-    return (
-      <div>
-      <RegisterForm data={this.ret}/>
-      </div>
-    );
+    return <RegisterForm data={this.ret} st={this.btnAlign}/>
   }
   
 }){}
@@ -26,8 +25,7 @@ class SignUpApp extends React.createClass({
 const RegisterForm = (props) =>{
   return (
     <div id="registerDiv" className="row col-sm-8 col-sm-offset-2">
-    <span className="form-control text-center">
-    <h1><p>Join RLMS!</p></h1>
+    <span className="text-center">
     <h2>Sign Up</h2>
     
     <form action="/api/signup" method="post">
@@ -41,10 +39,9 @@ const RegisterForm = (props) =>{
       <input type="password" className="form-control col-sm-6" name="password" id="password"></input><br/>
       <label>Confirm Password:</label>
       <input type="password" className="form-control col-sm-6" name="cPass" id="cPass"></input><br/>
-      <button type="submit" className="btn btn-primary col-sm-2">Register</button>
-      <button type="button" onClick={props.data} className="btn btn-info col-sm-2 pull-right">Cancel</button>
+      <button type="submit" className="btn btn-primary col-sm-4" style={props.st}>Register</button>
+      <button type="button" onClick={props.data} className="btn btn-danger col-sm-4 pull-right" style={props.st}>Cancel</button>
     </form>
-    
     </span>
     </div>
   )
