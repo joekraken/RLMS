@@ -13,7 +13,7 @@ app.get('/failLogin', function(req, res){
 });
 
 app.get('/profile/:username', function(req, res){
-    var url = '/#/home?id='+req.params.username;
+    var url = '/#/forum?id='+req.params.username;
     res.redirect(url);    
 });
 
