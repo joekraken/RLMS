@@ -15,6 +15,7 @@ router.get('/getExam',function(req,res){
 
 router.post('/postExam', function(req,res){
     var da = new DataAccess();
+    //update grade on databaase
     da.addOrUpdateExams(req.body,(result)=>{
         res.status(200);
     res.json(result);

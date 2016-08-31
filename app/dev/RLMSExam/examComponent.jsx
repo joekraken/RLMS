@@ -19,7 +19,6 @@ var Exam = React.createClass({
 
     //api call
     getExam(){
-
         this.setState({loadstatus:30});
         this.setState({loadstatus:80});
         var url = 'http://localhost:3000/getExam';
@@ -31,11 +30,11 @@ var Exam = React.createClass({
             //depending on batch get corresponding test
             //[0] = C#
             //[1] = Java
-            if(batch.includes("NET")){
-                this.setState({q:res[0]});
-            }
-            else
-                this.setState({q:res[1]});
+
+            if (batch.includes("NET")) {
+                this.setState({q: res[0]});}
+            if(batch.includes("Java")){
+                this.setState({q: res[1]});}
 
         });
     },
