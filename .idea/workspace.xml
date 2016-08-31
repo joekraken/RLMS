@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85de166d-55aa-4abd-8658-e11bf2cbcd46" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/dev/RLMSExam/examComponent.jsx" afterPath="$PROJECT_DIR$/app/dev/RLMSExam/examComponent.jsx" />
     </list>
     <ignored path="examGIT.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,15 +28,13 @@
       <file leaf-file-name="examComponent.jsx" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/dev/RLMSExam/examComponent.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="257" column="83" selection-start-line="257" selection-start-column="83" selection-end-line="257" selection-end-column="83" />
+            <state relative-caret-position="85">
+              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-                <element signature="e#166#1245#0" expanded="false" />
-                <element signature="e#1260#2649#0" expanded="false" />
-                <element signature="e#2690#5019#0" expanded="false" />
-                <element signature="e#5060#6350#0" expanded="false" />
-                <element signature="e#9297#10316#0" expanded="false" />
+                <element signature="e#194#2523#0" expanded="false" />
+                <element signature="e#2564#3854#0" expanded="false" />
+                <element signature="e#6801#7820#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -271,12 +269,12 @@
       <option name="presentableId" value="Default" />
       <updated>1472584486003</updated>
       <workItem from="1472584487336" duration="7954000" />
-      <workItem from="1472592968098" duration="25867000" />
+      <workItem from="1472592968098" duration="25942000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33821000" />
+    <option name="totallyTimeSpent" value="33896000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
@@ -344,11 +342,9 @@
           <caret line="98" column="26" selection-start-line="98" selection-start-column="26" selection-end-line="98" selection-end-column="26" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#166#1245#0" expanded="false" />
-            <element signature="e#1260#2649#0" expanded="false" />
-            <element signature="e#2690#5019#0" expanded="false" />
-            <element signature="e#5060#6350#0" expanded="false" />
-            <element signature="e#9297#10316#0" expanded="false" />
+            <element signature="e#194#2523#0" expanded="false" />
+            <element signature="e#2564#3854#0" expanded="false" />
+            <element signature="e#6801#7820#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -576,15 +572,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/dev/RLMSExam/examComponent.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="257" column="83" selection-start-line="257" selection-start-column="83" selection-end-line="257" selection-end-column="83" />
+        <state relative-caret-position="85">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#166#1245#0" expanded="false" />
-            <element signature="e#1260#2649#0" expanded="false" />
-            <element signature="e#2690#5019#0" expanded="false" />
-            <element signature="e#5060#6350#0" expanded="false" />
-            <element signature="e#9297#10316#0" expanded="false" />
+            <element signature="e#194#2523#0" expanded="false" />
+            <element signature="e#2564#3854#0" expanded="false" />
+            <element signature="e#6801#7820#0" expanded="false" />
           </folding>
         </state>
       </provider>
