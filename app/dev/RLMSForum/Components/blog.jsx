@@ -22,7 +22,7 @@ export default class Blog extends React.Component{
             min = "0" + now.getMinutes();
         }else{min =now.getMinutes()}
         var newPost = {
-            username: "[placeholder]",
+            username: sessionStorage.getItem('username'),
             comment: stuff,
             timestamp: now.getDay() + "/" +now.getMonth()+ '/' + now.getFullYear() + " " + now.getHours() + ":" + min
         };
@@ -39,7 +39,7 @@ export default class Blog extends React.Component{
 
         Request.post('http://localhost:3000/postForum').send(this.state.data[0]).end(function(err,res){
             if(err){console.log(err)}
-
+            
         });
         this.forceUpdate();
 
