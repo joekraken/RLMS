@@ -2,8 +2,9 @@ var express = require('express');
 var app = express.Router();
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
-var session = require('express-session');
 var cookie = require('cookie-parser');
+
+var session = require('express-session');
 var mon = require('../../tools/mongoDataAccess.js');
 
 var user = [
