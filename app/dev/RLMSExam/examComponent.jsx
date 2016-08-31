@@ -245,7 +245,8 @@ var Question = React.createClass({
         var qoptions = this.props.options.map(function(option,i){
             return (
                 //display answers of question
-                <div key={i}><input type="radio" name={qname}  value={option.text} onChange={this.handleChange}/>&nbsp;{option.text}</div>
+                <div key={i}><label for={qname}><input type="radio" name={qname}  value={option.text} onChange={this.handleChange}/>
+                    {option.text}</label></div>
             );
         }, this);
         return(
