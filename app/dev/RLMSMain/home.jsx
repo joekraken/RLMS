@@ -42,6 +42,7 @@ export default class Home extends React.Component{
                         <NavLink to="/home/exam" className="list-group-item">Exam</NavLink>
 
                         <br/>
+                        <NavLink to="/home/curriculum" className="list-group-item">Syllabus</NavLink>
                         <br/>
                         <br/>
                         <br/>
