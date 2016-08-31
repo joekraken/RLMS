@@ -4,6 +4,14 @@
 .commentButton{
     margin-top:1em;
 }
+
+#registerDiv{
+    margin-top: 1.5em;
+}
+
+.btnCenter{
+    margin-left: 10%;
+}
 .comment{
     border-bottom: solid 1px black ;
     margin-bottom: 1em;
@@ -16,4 +24,13 @@
     padding: 1em;
     border-radius: 5px;
     box-shadow: inset 1px 1px 10px 1px gray;
+}
+
+.option label{
+    font-weight:100 !important;
+}
+
+.examHeader {
+    text-align: center;
+    font-family: "Arial Rounded MT Bold";
 }
