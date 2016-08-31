@@ -136,7 +136,7 @@ DataAccess.prototype.getLessons=(lessonName,callback)=>{
     var client = DataAccess.prototype.MongoClient;
     var url = DataAccess.prototype.url;
     var cursor;
-    client.open((err,db)=>{
+    client.connect(url, (err,db)=>{
         if(lessonName) {
             cursor = db.collection('lesson').find({lessonName:lessonName});
         }else{
@@ -149,10 +149,11 @@ DataAccess.prototype.getLessons=(lessonName,callback)=>{
         })
     })
 };
+
 DataAccess.prototype.addOrUpdateLessons=(lesson,callback)=>{
     var client = DataAccess.prototype.MongoClient;
     var url = DataAccess.prototype.url;
-    client.open((err,db)=>{
+    client.connect(url, (err,db)=>{
         DataAccess.prototype.getLessons(lesson.batchName,(result)=>{
             if(result.length > 0 ){
                 lesson._id = result[0]._id;

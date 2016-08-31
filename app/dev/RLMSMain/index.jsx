@@ -4,9 +4,15 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import App from './App.jsx'
 import User from './digest.jsx'
 import Home from './home.jsx'
+
+import Forum from '../RLMSForum/Components/Blog.jsx'
+
 import Login from '../RLMSLogin/RLMSLogin.jsx'
 import Signup from '../RLMSLogin/RLMSSignup.jsx';
 import Exam from '../RLMSExam/examComponent.jsx';
+
+import Curriculum from '../RLMSCurriculum/index.jsx'
+
 
 render((
     //////////////////////////////
@@ -14,7 +20,7 @@ render((
     //<Route path = "name of reference" component = {name of import of component}/>
     //add to list below
     //////////////////////////////
-    //for a call from function initialize 
+    //for a call from function initialize
     //contextTypes: {
     //router: React.PropTypes.object.isRequired
     //},
@@ -33,11 +39,13 @@ render((
             <Route path="/signUp" component={Signup}/>
             <Route path="/home" component={Home}>
                 <Route path="/home/admin" component={Home}/>
-                <Route path="/home/curriculum" component={Home}/>
+                <Route path="/home/curriculum" component={Curriculum}/>
                 <Route path="/home/exam" component={Exam}/>
+                <Route path="/home/forum" component={Forum}/>
                 <Route path="/home/forum" component={Home}/>
                 <Route path="/home/user" component={Home}/>
             </Route>
+            <Route path="/logout" component={Login}/>
         </Route>
     </Router>
 ),document.getElementById('app'))
