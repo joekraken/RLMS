@@ -11,8 +11,8 @@ app.use(parser.urlencoded({extended:false}));
 
 
 app.get('/profile/:username', function(req, res){
-    var url = '/#/forum?id='+req.params.username;
-    res.redirect(url);    
+    var url = '/#/home/forum?id='+req.params.username;
+    res.redirect(url);
 });
 
 app.post('/login', passport.authenticate('local', {
@@ -20,7 +20,7 @@ app.post('/login', passport.authenticate('local', {
   failureRedirect: '/#/login'
 }), function(req, res){
   if(req.body.username){
-    res.redirect('/api/profile/'+req.body.username);    
+    res.redirect('/api/profile/'+req.body.username);
   }
 });
 
@@ -35,23 +35,24 @@ app.post('/signup', function(req, res){
     };
     da.getUsers(userData.username, function(result){
       if(result.length == 0){
-        
+
         da.addOrUpdateUser(userData, function(result){
           if(result == "success"){
-            
+
             da.getUsers(userData.username, function (result) {
               // var item = {
               //   ID: result[0]._id,
               //   firstname: result[0].f_name,
               //   lastname: result[0].l_name,
               //   batch: result[0].batch};
-                
+
               // localStorage.setItem('userObj', it em);
               res.redirect('/api/profile/'+result[0].username);            
+
             });
-            
+
           }});
-          
+
       }});
   }});
 

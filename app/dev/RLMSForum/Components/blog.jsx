@@ -9,7 +9,8 @@ export default class Blog extends React.Component{
     {
         super();
         this.state={};
-        this.getData.bind(this);
+
+
     }
     doStuff(stuff){
 
@@ -43,12 +44,13 @@ export default class Blog extends React.Component{
         });
         this.forceUpdate();
 
-    }getData(isTimer)
+    }getForum(batchname,isTimer)
     {
 
-        var url = 'http://localhost:3000/getForum';
+        var url = 'http://localhost:3000/getForum/'+batchname;
+        console.log(url);
         Request.get(url).then(result =>{
-
+            this.timer = setInterval(()=>{this.getForum(this)},15000);
             if(isTimer){
                 isTimer.setState({data:JSON.parse(result.text)});
             }else {
@@ -59,12 +61,30 @@ export default class Blog extends React.Component{
 
 
 }
+    getUser(username){
+        let url = "http://localhost:3000/getUser/" + username;
+        console.log(url);
+        let stuff = Request.get(url).then((result)=>{
+            this.setState({batch:JSON.parse(result.text)[0].batch});
+            this.getForum(this.state.batch.batchName,this.timer);
+            })
+
+
+    }
     componentWillMount(){
-    this.getData()
+
+        if(!sessionStorage.getItem("username")){
+            const {query} = this.props.location;
+            const {id} = query;
+            console.log(id);
+            sessionStorage.setItem("username",id);
+        }
+        this.getUser(sessionStorage.getItem("username"));
+
 
     }
     componentDidMount(){
-        this.timer = setInterval(()=>{this.getData(this)},15000);
+
     }
 
     render(){
@@ -108,7 +128,10 @@ export default class Blog extends React.Component{
             )
         }else{
             return(
-                <p>stuff</p>
+                <div className="text-center">
+                    <h1>You are not assigned to a batch!</h1>
+                    <p>If you're recieving this message in error, please contact your trainer.</p>
+                </div>
             )
         }
     }

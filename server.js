@@ -12,7 +12,8 @@ var express = require('express'),
     webpackConfig =require(configDir);
     compiler=webpack(webpackConfig);
 
-
+var userRouter  = require('./routing/RLMSGetUsers.js');
+app.use('',userRouter);
 var basicRouter = require('./routing/RLMSTesting.js');
 app.use('/api',basicRouter);
 
