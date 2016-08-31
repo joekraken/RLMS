@@ -5,31 +5,43 @@ import Request from 'superagent';
 //local vars for testing code
 
 var res;
-
 var Exam = React.createClass({
     /*properties
      * input= Holding entire test
      */
     getInitialState: function() {
-        return {totalscore : 0, testSubmitted: false, q:""};
+        return {totalscore : 0, testSubmitted: false, q:"", loadstatus:0, showModal:false};
 
     },
     handleChange: function(result) {
-        this.setState({totalscore: result.totalscore, testSubmitted: true});
+        this.setState({totalscore: result.totalscore, testSubmitted: true, showModal:true});
     },
 
     //api call
     getExam(){
+
+        this.setState({loadstatus:30});
+        this.setState({loadstatus:80});
         var url = 'http://localhost:3000/getExam';
         Request.get(url).then(result =>{
+
             res = JSON.parse(result.text);
+            var batch = sessionStorage.getItem('batchName');
 
             //depending on batch get corresponding test
             //[0] = C#
             //[1] = Java
+            if(batch.includes("NET")){
+                this.setState({q:res[0]});
+            }
+            else
+                this.setState({q:res[1]});
 
-            this.setState({q:res[1]});
         });
+    },
+
+    close(){
+      this.setState({showModal:false});
     },
 
     componentWillMount(){
@@ -55,7 +67,7 @@ var Exam = React.createClass({
                         </tbody>
                     </table>
 
-                    <Modal show={this.state.testSubmitted}>
+                    <Modal show={this.state.showModal}>
                         <Modal.Header  closeButton>
                             <Modal.Title>Score Summary</Modal.Title>
                         </Modal.Header>
@@ -64,7 +76,7 @@ var Exam = React.createClass({
                                     percentage={Math.round(this.state.totalscore*100/totalPoints)} tpoints={totalPoints}/>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button >Close</Button>
+                            <Button onClick={this.close}>Close</Button>
                         </Modal.Footer>
                     </Modal>
 
@@ -72,7 +84,7 @@ var Exam = React.createClass({
             );
         }
         else{
-            return(<ProgressBar active now={70}/>);
+            return(<ProgressBar active now={this.state.loadstatus}/>);
         }
 
 
