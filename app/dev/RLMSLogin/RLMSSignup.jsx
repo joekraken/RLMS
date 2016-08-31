@@ -9,7 +9,10 @@ class SignUpApp extends React.createClass({
   ret: function(){
     this.context.router.push('/login');
   },
-  
+    
+  componentWillMount(){
+    sessionStorage.clear();
+  },
   render(){
     return (
       <div>

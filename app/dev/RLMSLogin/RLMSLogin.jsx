@@ -10,6 +10,9 @@ class LoginApp extends React.createClass({
     this.context.router.push('/signUp');
   },
 
+  componentWillMount(){
+    sessionStorage.clear();
+  },
   render(){
     return (
       <div className="text-center">
@@ -21,14 +24,14 @@ class LoginApp extends React.createClass({
 
 const LoginForm = (props) =>{
   return (
-    <div id="registerDiv" className="row col-sm-8 col-sm-offset-2">
+    <div id="registerDiv" className="row col-sm-6 col-sm-offset-3">
     <span className="form-control text-center">
     <h1><p>Welcome to RLMS</p></h1>
     <h2>Login</h2>
     
     <form action="/api/login" method="post">
       <label>Username: </label>
-      <input type="text" className="form-control col-sm-6" name="username" id="username"></input><br/>
+      <input type="text" className="form-control col-sm-4" name="username" id="username"></input><br/>
       <label>Password: </label>
       <input type="password" className="form-control col-sm-6" name="password" id="password"></input><br/>
       <button type="submit" className="btn btn-primary col-sm-2">LogIn</button>

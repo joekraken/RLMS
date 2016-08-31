@@ -5,6 +5,7 @@ var parser = require('body-parser');
 var mon = require('../../tools/mongoDataAccess.js');
 
 var secure = require('./init.js');
+
 app.use('/', secure);
 app.use(parser.urlencoded({extended:false}));
 
@@ -16,7 +17,7 @@ app.get('/profile/:username', function(req, res){
 
 app.post('/login', passport.authenticate('local', {
   //successRedirect: '/api/profile/',
-  failureRedirect: '/api/login'
+  failureRedirect: '/#/login'
 }), function(req, res){
   if(req.body.username){
     res.redirect('/api/profile/'+req.body.username);
@@ -46,7 +47,7 @@ app.post('/signup', function(req, res){
               //   batch: result[0].batch};
 
               // localStorage.setItem('userObj', it em);
-              res.redirect('/api/profile/'+result[0]._id);
+              res.redirect('/api/profile/'+result[0].username);            
 
             });
 

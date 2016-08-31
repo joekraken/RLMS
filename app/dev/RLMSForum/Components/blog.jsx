@@ -10,7 +10,6 @@ export default class Blog extends React.Component{
         super();
         this.state={};
 
-
     }
     doStuff(stuff){
 
@@ -44,19 +43,13 @@ export default class Blog extends React.Component{
         });
         this.forceUpdate();
 
-    }getForum(batchname,isTimer)
+    }getForum(batchname)
     {
 
         var url = 'http://localhost:3000/getForum/'+batchname;
         console.log(url);
         Request.get(url).then(result =>{
-            this.timer = setInterval(()=>{this.getForum(this)},15000);
-            if(isTimer){
-                isTimer.setState({data:JSON.parse(result.text)});
-            }else {
                 this.setState({data: JSON.parse(result.text)});
-            }
-
         });
 
 
@@ -84,10 +77,10 @@ export default class Blog extends React.Component{
 
 
     }
-    componentDidMount(){
+
+    componentWillUnmount(){
 
     }
-
     render(){
 
         if(this.state.data){
