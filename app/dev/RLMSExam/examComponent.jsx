@@ -3,87 +3,7 @@ import { Button, Modal, ProgressBar } from 'react-bootstrap';
 import Request from 'superagent';
 
 //local vars for testing code
-var testC = {
-    topic: "C#",
-    questions: [
-        {
-            id: "1",
-            ques:"What is a jagged array in C#",
-            ans:"An array of arrays",
-            weight: 3,
-            options:[
-                {text:"An array that no one uses"},
-                {text:"An array developed by Mike Jagger"},
-                {text:"An array of arrays"},
-                {text:"An array that can dynamically allocate more memory if needed"}
-            ]
-        },
-        {
-            id: "2",
-            ques:"Can you force garbage collection in C#?",
-            ans:"Kinda",
-            weight: 2,
-            options:[
-                {text:"Not technically"},
-                {text:"Kinda"},
-                {text:"Yes"},
-                {text:"Well, in Java you can't."}
-            ]
-        },
-        {
-            id: "3",
-            ques: "Can you return multiple values from a function in C#?",
-            ans: "True",
-            weight: 1,
-            options: [
-                {text: "True"},
-                {text: "False"}
-            ]
-        }
-    ]
-};
-var testDB = {
-    topic: "Java",
-    questions: [
-        {
-            id: "1",
-            ques:"Why is C# better than Java",
-            ans:"All of the above",
-            weight: 5,
-            options:[
-                {text:"Because .NET rocks"},
-                {text:"Java doesn't have LINQ, yet.."},
-                {text:"A C# guy made this"},
-                {text:"C# has access to pointers"},
-                {text:"All of the above"}
-            ]
-        },
-        {
-            id: "2",
-            ques:"Difference between truncate and delete?",
-            ans:"You can't rollback with delete.",
-            weight: 5,
-            options:[
-                {text:"The same"},
-                {text:"Truncate sounds cool"},
-                {text:"I like truncate"},
-                {text:"You can't rollback with delete."}
-            ]
-        },
-        {
-            id: "3",
-            ques: "What is the difference between StringBuffer and StringBuilder in Java?",
-            ans: "StringBuffer methods are synchronized",
-            weight: 1,
-            options: [
-                {text: "StringBuffer methods are synchronized"},
-                {text: "StringBuilder is thread safe"},
-                {text: "StringBuffer is faster when calling the same methods of each class"},
-                {text: "StringBuilder value can be changed"}
-            ]
-        }
-    ]
-};
+
 var res;
 
 var Exam = React.createClass({
@@ -104,8 +24,11 @@ var Exam = React.createClass({
         Request.get(url).then(result =>{
             res = JSON.parse(result.text);
 
-            //depending on batch do something
-            this.setState({q:res[0]});
+            //depending on batch get corresponding test
+            //[0] = C#
+            //[1] = Java
+
+            this.setState({q:res[1]});
         });
     },
 
@@ -119,7 +42,7 @@ var Exam = React.createClass({
             this.state.q.questions.map(question => totalPoints += question.weight);
             return(
                 <div>
-                    <h1>Exam for {this.state.q.topic}</h1>
+                    <h1 className="examHeader ">Exam for {this.state.q.topic}</h1>
                     <hr/>
                     {/*<ProgressBar active now={question answered/this.props.input.questions.length*100}/>*/}
                     <table className="table-bordered">
@@ -149,7 +72,7 @@ var Exam = React.createClass({
             );
         }
         else{
-            return(<ProgressBar active now="70"/>);
+            return(<ProgressBar active now={70}/>);
         }
 
 
@@ -211,7 +134,8 @@ var Question = React.createClass({
             negativeAnswerRecorded: false,
             tempAnswer:"",
             glyph:"glyphicon glyphicon-remove",
-            btn:"btn btn-danger btn-xs"
+            btn:"btn btn-danger btn-xs",
+            alert:"alert alert-danger"
         };
     },
 
@@ -221,6 +145,7 @@ var Question = React.createClass({
         this.state.tempAnswer = event.target.value;
         this.state.glyph="glyphicon glyphicon-ok";
         this.state.btn="btn btn-success btn-xs pull-right";
+        this.state.alert="alert alert-success";
 
         //check if selected answer is correct
         if( event.target.value == this.props.answer) {
@@ -261,9 +186,12 @@ var Question = React.createClass({
                 {/*display answers*/}
                 <div>{qoptions}</div>
                 <br/>
-                <p>Answer saved: <strong>{this.state.tempAnswer}</strong><button type="button" className={this.state.btn} disabled>
+                <div className={this.state.alert} role="alert">
+                    <p>Answer saved: <strong><i>{this.state.tempAnswer}</i></strong>
+                    <button type="button" className={this.state.btn} disabled>
                     <span className={this.state.glyph}></span>
-                </button></p>
+                    </button></p>
+                </div>
 
             </div>
         );

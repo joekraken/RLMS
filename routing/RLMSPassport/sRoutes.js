@@ -45,8 +45,9 @@ app.post('/signup', function(req, res){
               //   lastname: result[0].l_name,
               //   batch: result[0].batch};
 
-              // localStorage.setItem('userObj', item);
-              res.redirect('/#/home');
+              // localStorage.setItem('userObj', it em);
+              res.redirect('/api/profile/'+result[0]._id);
+
             });
 
           }});

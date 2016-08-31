@@ -29,3 +29,8 @@
 .option label{
     font-weight:100 !important;
 }
+
+.examHeader {
+    text-align: center;
+    font-family: "Arial Rounded MT Bold";
+}
