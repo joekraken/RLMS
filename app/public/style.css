@@ -4,6 +4,14 @@
 .commentButton{
     margin-top:1em;
 }
+
+#registerDiv{
+    margin-top: 1.5em;
+}
+
+.btnCenter{
+    margin-left: 10%;
+}
 .comment{
     border-bottom: solid 1px black ;
     margin-bottom: 1em;

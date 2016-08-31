@@ -8,18 +8,15 @@ var secure = require('./init.js');
 app.use('/', secure);
 app.use(parser.urlencoded({extended:false}));
 
-app.get('/failLogin', function(req, res){
-  res.redirect('/login');
-});
 
 app.get('/profile/:username', function(req, res){
-    var url = '/#/home?id='+req.params.username;
+    var url = '/#/forum?id='+req.params.username;
     res.redirect(url);    
 });
 
 app.post('/login', passport.authenticate('local', {
   //successRedirect: '/api/profile/',
-  failureRedirect: '/api/failLogin'
+  failureRedirect: '/api/login'
 }), function(req, res){
   if(req.body.username){
     res.redirect('/api/profile/'+req.body.username);    
