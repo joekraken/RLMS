@@ -104,8 +104,11 @@ var Exam = React.createClass({
         Request.get(url).then(result =>{
             res = JSON.parse(result.text);
 
-            //depending on batch do something
-            this.setState({q:res[0]});
+            //depending on batch get corresponding test
+            //[0] = C#
+            //[1] = Java
+
+            this.setState({q:res[1]});
         });
     },
 
@@ -119,7 +122,7 @@ var Exam = React.createClass({
             this.state.q.questions.map(question => totalPoints += question.weight);
             return(
                 <div>
-                    <h1>Exam for {this.state.q.topic}</h1>
+                    <h1 className="examHeader ">Exam for {this.state.q.topic}</h1>
                     <hr/>
                     {/*<ProgressBar active now={question answered/this.props.input.questions.length*100}/>*/}
                     <table className="table-bordered">
@@ -149,7 +152,7 @@ var Exam = React.createClass({
             );
         }
         else{
-            return(<ProgressBar active now="70"/>);
+            return(<ProgressBar active now={70}/>);
         }
 
 
@@ -211,7 +214,8 @@ var Question = React.createClass({
             negativeAnswerRecorded: false,
             tempAnswer:"",
             glyph:"glyphicon glyphicon-remove",
-            btn:"btn btn-danger btn-xs"
+            btn:"btn btn-danger btn-xs",
+            alert:"alert alert-danger"
         };
     },
 
@@ -221,6 +225,7 @@ var Question = React.createClass({
         this.state.tempAnswer = event.target.value;
         this.state.glyph="glyphicon glyphicon-ok";
         this.state.btn="btn btn-success btn-xs pull-right";
+        this.state.alert="alert alert-success";
 
         //check if selected answer is correct
         if( event.target.value == this.props.answer) {
@@ -261,9 +266,12 @@ var Question = React.createClass({
                 {/*display answers*/}
                 <div>{qoptions}</div>
                 <br/>
-                <p>Answer saved: <strong>{this.state.tempAnswer}</strong><button type="button" className={this.state.btn} disabled>
+                <div className={this.state.alert} role="alert">
+                    <p>Answer saved: <strong><i>{this.state.tempAnswer}</i></strong>
+                    <button type="button" className={this.state.btn} disabled>
                     <span className={this.state.glyph}></span>
-                </button></p>
+                    </button></p>
+                </div>
 
             </div>
         );
