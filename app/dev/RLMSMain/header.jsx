@@ -23,7 +23,7 @@ export default class Header extends React.Component{
             </Navbar.Header>
             <Navbar.Collapse >
                 <Nav pullRight>
-                    <NavLink to="/home/user" style={userNav}><User/></NavLink>
+                    <NavLink to="/home/user" style={userNav}></NavLink>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>)

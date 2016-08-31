@@ -1,17 +1,24 @@
 import React from 'react';
 import {render} from 'react-dom';
-import Requset from 'superagent';
+import Request from 'superagent';
 
-class LoginApp extends React.Component{
-  constructor(){
-    super();
-    this.state = {};
-  }
-  
+class LoginApp extends React.createClass({
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
+  reg: function(){
+    this.context.router.push('/signUp');
+  },
+
   render(){
-    return <LoginForm/>;
+    return (
+      <div>
+        <LoginForm/>
+        <button type="button" onClick={this.reg}>Sign Up</button>
+      </div>      
+      );
   }
-}
+}){}
 
 const LoginForm = (props) =>{
   return (
@@ -26,12 +33,11 @@ const LoginForm = (props) =>{
       <input type="password" name="password" id="password"></input>
       <button type="submit">LogIn</button>
       </form>
-    
     </div>
   );
 }
 
-render(<LoginApp/>, document.getElementById("temp"));
+export default LoginApp;
 
 if(module.hot){
   module.hot.accept();

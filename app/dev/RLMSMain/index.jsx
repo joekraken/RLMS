@@ -4,6 +4,8 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import App from './App.jsx'
 import User from './digest.jsx'
 import Home from './home.jsx'
+import Login from '../RLMSLogin/RLMSLogin.jsx'
+import Signup from '../RLMSLogin/RLMSSignup.jsx';
 
 render((
     //////////////////////////////
@@ -25,9 +27,9 @@ render((
     ////////////////////////////////
     <Router history = {hashHistory}>
         <Route path="/" component = {App}>
-            <IndexRoute component = {Home}/>
-            <Route path="/login" component={Home}/>
-            <Route path="/signUp" component={Home}/>
+            <IndexRoute component = {Login}/>
+            <Route path="/login" component={Login}/>
+            <Route path="/signUp" component={Signup}/>
             <Route path="/home" component={Home}>
                 <Route path="/home/admin" component={Home}/>
                 <Route path="/home/curriculum" component={Home}/>
