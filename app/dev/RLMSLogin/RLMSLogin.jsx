@@ -10,6 +10,9 @@ class LoginApp extends React.createClass({
     this.context.router.push('/signUp');
   },
 
+  componentWillMount(){
+    sessionStorage.clear();
+  },
   render(){
     return (
       <div className="text-center">
