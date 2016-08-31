@@ -6,7 +6,8 @@ router.use(bparser.json());
 
 router.get('/getForum/:batchname',function(req,res){
     var da = new DataAccess;
-    da.getForums(req.params.batchName,(result)=>{
+    console.log(req.params.batchname);
+    da.getForums(req.params.batchname,(result)=>{
         res.status(200);
         res.json(result);
         });

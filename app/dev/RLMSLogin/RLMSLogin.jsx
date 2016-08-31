@@ -9,11 +9,17 @@ class LoginApp extends React.createClass({
   reg: function(){
     this.context.router.push('/signUp');
   },
+  btnAlign:{
+    marginTop: '1em'
+  },
 
+  componentWillMount(){
+    sessionStorage.clear();
+  },
   render(){
     return (
       <div className="text-center">
-        <LoginForm data={this.reg}/>
+        <LoginForm data={this.reg} st={this.btnAlign}/>
       </div>      
       );
   }
@@ -21,18 +27,17 @@ class LoginApp extends React.createClass({
 
 const LoginForm = (props) =>{
   return (
-    <div id="registerDiv" className="row col-sm-8 col-sm-offset-2">
-    <span className="form-control text-center">
-    <h1><p>Welcome to RLMS</p></h1>
+    <div className="row col-sm-6 col-sm-offset-3" id="registerDiv">
+    <span className="text-center">
     <h2>Login</h2>
     
     <form action="/api/login" method="post">
       <label>Username: </label>
-      <input type="text" className="form-control col-sm-6" name="username" id="username"></input><br/>
+      <input type="text" className="form-control col-sm-4" name="username" id="username"></input><br/>
       <label>Password: </label>
       <input type="password" className="form-control col-sm-6" name="password" id="password"></input><br/>
-      <button type="submit" className="btn btn-primary col-sm-2">LogIn</button>
-      <button type="button" className="btn btn-info col-sm-2 pull-right" onClick={props.data}>Sign Up</button>
+      <button type="submit" className="btn btn-primary col-sm-4" style={props.st}>LogIn</button>
+      <button type="button" className="btn btn-info col-sm-4 pull-right" onClick={props.data} style={props.st}>Sign Up</button>
       </form>
       </span>
     </div>

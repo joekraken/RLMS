@@ -5,6 +5,8 @@ import App from './App.jsx'
 import User from './digest.jsx'
 import Home from './home.jsx'
 
+import Profile from '../RLMSUser/profile.jsx';
+
 import Forum from '../RLMSForum/Components/Blog.jsx'
 
 import Login from '../RLMSLogin/RLMSLogin.jsx'
@@ -43,7 +45,7 @@ render((
                 <Route path="/home/exam" component={Exam}/>
                 <Route path="/home/forum" component={Forum}/>
                 <Route path="/home/forum" component={Home}/>
-                <Route path="/home/user" component={Home}/>
+                <Route path="/home/profile" component={Profile}/>
             </Route>
             <Route path="/logout" component={Login}/>
         </Route>

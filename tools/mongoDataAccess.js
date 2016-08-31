@@ -84,6 +84,7 @@ DataAccess.prototype.getForums=(batchName,callback)=>{//todo
         if(batchName)
         {
             cursor = db.collection('forum').find({batchName:batchName})
+            console.log('Ive been called!')
         }else{
             cursor = db.collection('forum').find();
         }
