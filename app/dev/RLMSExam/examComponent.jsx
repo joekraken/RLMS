@@ -103,8 +103,6 @@ var Exam = React.createClass({
         var url = 'http://localhost:3000/getExam';
         Request.get(url).then(result =>{
             res = JSON.parse(result.text);
-            console.log(res[0]);
-            console.log(testC);
 
             //depending on batch do something
             this.setState({q:res[0]});
@@ -151,7 +149,7 @@ var Exam = React.createClass({
             );
         }
         else{
-            return(<p>Loading exam...</p>);
+            return(<ProgressBar active now="70"/>);
         }
 
 
@@ -211,12 +209,18 @@ var Question = React.createClass({
         return {
             correctAnswerRecorded: false,
             negativeAnswerRecorded: false,
-            tempAnswer:""
+            tempAnswer:"",
+            glyph:"glyphicon glyphicon-remove",
+            btn:"btn btn-danger btn-xs"
         };
     },
+
+    //logic for keeping score of question
     handleChange: function(event) {
         let score = 0;
         this.state.tempAnswer = event.target.value;
+        this.state.glyph="glyphicon glyphicon-ok";
+        this.state.btn="btn btn-success btn-xs pull-right";
 
         //check if selected answer is correct
         if( event.target.value == this.props.answer) {
@@ -246,7 +250,7 @@ var Question = React.createClass({
         var qoptions = this.props.options.map(function(option,i){
             return (
                 //display answers of question
-                <div key={i}><label for={qname}><input type="radio" name={qname}  value={option.text} onChange={this.handleChange}/>
+                <div className="option" key={i}><label for={qname}><input type="radio" name={qname}  value={option.text} onChange={this.handleChange}/>
                     {option.text}</label></div>
             );
         }, this);
@@ -257,7 +261,9 @@ var Question = React.createClass({
                 {/*display answers*/}
                 <div>{qoptions}</div>
                 <br/>
-                <p>Answer saved: {this.state.tempAnswer}</p>
+                <p>Answer saved: <strong>{this.state.tempAnswer}</strong><button type="button" className={this.state.btn} disabled>
+                    <span className={this.state.glyph}></span>
+                </button></p>
 
             </div>
         );
