@@ -105,8 +105,9 @@ var Exam = React.createClass({
             res = JSON.parse(result.text);
             console.log(res[0]);
             console.log(testC);
+
             //depending on batch do something
-            this.setState({q:res[1]});
+            this.setState({q:res[0]});
         });
     },
 
@@ -120,7 +121,7 @@ var Exam = React.createClass({
             this.state.q.questions.map(question => totalPoints += question.weight);
             return(
                 <div>
-                    <h1>Exam for C#</h1>
+                    <h1>Exam for {this.state.q.topic}</h1>
                     <hr/>
                     {/*<ProgressBar active now={question answered/this.props.input.questions.length*100}/>*/}
                     <table className="table-bordered">
@@ -245,7 +246,8 @@ var Question = React.createClass({
         var qoptions = this.props.options.map(function(option,i){
             return (
                 //display answers of question
-                <div key={i}><input type="radio" name={qname}  value={option.text} onChange={this.handleChange}/>&nbsp;{option.text}</div>
+                <div key={i}><label for={qname}><input type="radio" name={qname}  value={option.text} onChange={this.handleChange}/>
+                    {option.text}</label></div>
             );
         }, this);
         return(
