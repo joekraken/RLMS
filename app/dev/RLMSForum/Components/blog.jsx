@@ -93,7 +93,10 @@ export default class Blog extends React.Component{
                         <p className="Desc">{item.description}</p>
                         <NewComment doStuff={this.doStuff.bind(this)}></NewComment>
                         <hr id="dividerComments"/>
-                        {this.comments}
+                        <div className="commentBlock">
+                            {this.comments}
+                        </div>
+
 
                     </div>
                 )
@@ -113,16 +116,17 @@ export default class Blog extends React.Component{
 const Comment = (props) => {
 
     return (
-        <div>
-            <div className="row comments">
+        <div className="comment">
+            <div className="row  text-center ">
                 <span id="status">
                     <p className="col-sm-6">{props.data.username}</p>
-                    <p className="col-sm-6">{props.data.timestamp}</p>
+                    <p className="col-sm-6 ">{props.data.timestamp}</p>
+                    <hr/>
                 </span>
             </div>
 
 
-            <p className="col-sm-offset-1">{props.data.comment}</p>
+            <p className="text-center">{props.data.comment}</p>
         </div>
     )
 
