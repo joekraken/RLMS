@@ -4,6 +4,7 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import App from './App.jsx'
 import User from './digest.jsx'
 import Home from './home.jsx'
+import Curriculum from '../RLMSCurriculum/index.jsx'
 
 render((
     //////////////////////////////
@@ -30,7 +31,7 @@ render((
             <Route path="/signUp" component={Home}/>
             <Route path="/home" component={Home}>
                 <Route path="/home/admin" component={Home}/>
-                <Route path="/home/curriculum" component={Home}/>
+                <Route path="/home/curriculum" component={Curriculum}/>
                 <Route path="/home/exam" component={Home}/>
                 <Route path="/home/forum" component={Home}/>
                 <Route path="/home/user" component={Home}/>

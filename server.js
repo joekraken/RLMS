@@ -26,7 +26,10 @@ app.use('/api', login);
 var DA = require('./tools/mongoDataAccess.js');
 
 var RLMSForum = require('./routing/RLMSForum.js');
+var RLMSC = require('./routing/RLMSCurriculum.js');
+
 app.use("",RLMSForum);
+app.use("",RLMSC);
 app.use(webpackDevMiddleware(compiler, {
     hot: true,
     filename: '[name].js',
