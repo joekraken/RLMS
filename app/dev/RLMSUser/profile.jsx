@@ -73,7 +73,9 @@ class Profile extends React.Component{
     }
 
     render (){
-
+        const center = {
+            textAlign:'center'
+        }
         const hr = {
             borderTop: '1px solid grey'
         }
@@ -257,7 +259,7 @@ class Profile extends React.Component{
                         </div>
                     </div>
                     <br/><br/>
-                    <div>
+                    <div style={center}>
                         <h1>You are not assigned to a batch!</h1>
                         <br/>
                         <h4>If you are receiving this message in error, please contact your trainer.</h4>
@@ -267,7 +269,7 @@ class Profile extends React.Component{
         }
         else{
             return(
-                <div>
+                <div style={center}>
                     <h2>Failed to load data.</h2>
                     <h4>Please contact and administrator if you are seeing this message</h4>
                 </div>
