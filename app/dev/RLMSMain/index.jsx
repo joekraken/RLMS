@@ -12,6 +12,7 @@ import Forum from '../RLMSForum/Components/Blog.jsx'
 import Login from '../RLMSLogin/RLMSLogin.jsx'
 import Signup from '../RLMSLogin/RLMSSignup.jsx';
 import Exam from '../RLMSExam/examComponent.jsx';
+import Admin from '../RLMSAdmin/RLMSBatch.jsx';
 
 import Curriculum from '../RLMSCurriculum/index.jsx'
 
@@ -40,7 +41,7 @@ render((
             <Route path="/login" component={Login}/>
             <Route path="/signUp" component={Signup}/>
             <Route path="/home" component={Home}>
-                <Route path="/home/admin" component={Home}/>
+                <Route path="/home/admin" component={Admin}/>
                 <Route path="/home/curriculum" component={Curriculum}/>
                 <Route path="/home/exam" component={Exam}/>
                 <Route path="/home/forum" component={Forum}/>
