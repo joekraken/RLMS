@@ -22,15 +22,10 @@ export default class Header extends React.Component{
         return (<Navbar inverse fixedTop>
             <Navbar.Header>
                 <Navbar.Brand>
-                    <NavLink to="/home">React LMS</NavLink>
+                    <NavLink to="/home/forum">React LMS</NavLink>
                 </Navbar.Brand>
                 <Navbar.Toggle />
             </Navbar.Header>
-            <Navbar.Collapse >
-                <Nav pullRight>
-                    <NavLink to="/home/profile" style={userNav}>{name}&nbsp;&nbsp;<img style={logo} src=""/></NavLink>
-                </Nav>
-            </Navbar.Collapse>
         </Navbar>)
     }
 }
