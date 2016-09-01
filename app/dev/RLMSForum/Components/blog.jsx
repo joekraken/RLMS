@@ -98,7 +98,7 @@ export default class Blog extends React.Component{
                     console.log(item);
                 }
                 return(
-                    <div className="col-sm-6 col-sm-offset-3 header">
+                    <div className="col-sm-12 header">
 
                         <div id="headBar">
                             <h1 className="text-center">{item.batchName}</h1>
@@ -137,14 +137,11 @@ const Comment = (props) => {
         <div className="comment">
             <div className="row  text-center ">
                 <span id="status">
-                    <p className="col-sm-6">{props.data.username}</p>
+                    <p className="col-sm-6"><strong>{props.data.username}</strong></p>
                     <p className="col-sm-6 ">{props.data.timestamp}</p>
-                    <hr/>
                 </span>
             </div>
-
-
-            <p className="text-center">{props.data.comment}</p>
+            <p className="text-center"><em>{props.data.comment}</em></p>
         </div>
     )
 

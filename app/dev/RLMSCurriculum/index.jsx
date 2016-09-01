@@ -5,35 +5,27 @@ var res;
 
 var Curriculum = React.createClass({
     getInitialState () {
-    return {
-      curriculum: '',
-      Lesson: ''
-    };
-  },
-   componentWillMount() {
-       if(sessionStorage.getItem('batchName')){
-           var b = sessionStorage.getItem('batchName').split('-')[2];
-           if(b=="NET"){
-               b=".NET";
-           }
-           console.log(b);
-              var url = 'http://localhost:3000/getLesson/' + b;
-              //var url = 'http://localhost:3000/getLesson/.Net';
-    
-    this.serverRequest = Request.get(url).end(function(err,result){
-        this.setState({
-            data:JSON.parse(result.text)
-        });       
-  }.bind(this));
+        return {};
+    },
+    componentWillMount() {
+        if(sessionStorage.getItem('batchName')){
+            console.log('made request');
+            //pull batchName from storage
+            var b = sessionStorage.getItem('batchName').split('-')[2];
+            if(b=="NET"){
+                b=".NET";
+            }
+            //request lesson for batch
+            var url = 'http://localhost:3000/getLesson/' + b;    
+            this.serverRequest = Request.get(url).end(function(err,result){
+                this.setState({
+                    data:JSON.parse(result.text)
+                });       
+            }.bind(this));
        }
-       else{
-           console.log('no batch');
-       }
-},
-   componentWillUnmount: function() {
-    //this.serverRequest.abort();
-  },
+    },    
     render () {
+        //if data not initialized, assume not assigned to batch
         if(this.state.data == null || this.state.data == undefined){
             return(
                 <div className="text-center">
@@ -42,7 +34,9 @@ var Curriculum = React.createClass({
                 </div>
             ) 
         }
+        //else render Lesson
         else if(sessionStorage.getItem('batchName')){
+            console.log('made it here');
            var hstyle = {'text-align':'center'};
             return(
                 <div>
@@ -51,7 +45,7 @@ var Curriculum = React.createClass({
                         var s = JSON.stringify(name.topic)
                         return <div >
                             <h3>Week {name.week}: {name.lessonName} </h3>
-                            <Lesson2 framework={s}/>
+                            <Lesson framework={s}/>
                             <hr/>
                             </div>;
                     })}
@@ -73,17 +67,7 @@ var Curriculum = React.createClass({
 
 var Lesson = React.createClass({
     render () {
-        var s = JSON.parse(this.props.framework);
-        return <h6>
-            {s.map(function(name, index){
-                return <div > <p><b>Framework: </b>{name.title}</p> <p><b>Keywords: </b>{name.keywords}</p></div>;
-            })}
-         </h6> ;
-    }
-});
-
-var Lesson2 = React.createClass({
-    render () {
+        //render table with lessons 
         var s = JSON.parse(this.props.framework);
         return <table className="table table-bordered table-striped table-condensed">
         <thead>
@@ -101,7 +85,6 @@ var Lesson2 = React.createClass({
     }
 });
 
-// render(<Curriculum/>, document.getElementById('curr'));
 
 if (module.hot) {
     module.hot.accept();
