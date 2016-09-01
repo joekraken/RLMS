@@ -28,6 +28,10 @@
     box-shadow: inset 1px 1px 10px 1px gray;
 }
 
+.weight{
+    text-align:right;
+}
+
 .option label{
     font-weight:100 !important;
 }

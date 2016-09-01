@@ -208,7 +208,8 @@ var Question = React.createClass({
         return(
             <div className="list-group-item">
                 {/*display questions*/}
-                <div><strong>Question {this.props.number}</strong>: {this.props.question}</div>
+
+                <div><strong>Question {this.props.number}</strong>: {this.props.question}<spam className="badge pull-right">Points: <strong>{this.props.weight}</strong></spam></div>
                 {/*display answers*/}
                 <div>{qoptions}</div>
                 <br/>
