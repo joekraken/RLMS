@@ -30,6 +30,9 @@ var DA = require('./tools/mongoDataAccess.js');
 var RLMSForum = require('./routing/RLMSForum.js');
 var RLMSC = require('./routing/RLMSCurriculum.js');
 
+var RLMSAdmin = require('./routing/RLMSAdmin.js');
+app.use("/admin", RLMSAdmin);
+
 app.use("",RLMSForum);
 app.use("",RLMSC);
 app.use(webpackDevMiddleware(compiler, {
