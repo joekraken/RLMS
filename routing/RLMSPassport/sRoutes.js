@@ -31,7 +31,8 @@ app.post('/signup', function(req, res){
       username: req.body.username,
       f_name: req.body.firstname,
       l_name: req.body.lastname,
-      password: req.body.password
+      password: req.body.password,
+      email: req.body.email
     };
     da.getUsers(userData.username, function(result){
       if(result.length == 0){
