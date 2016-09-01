@@ -10,7 +10,6 @@ export default class Blog extends React.Component{
         super();
         this.state={};
 
-
     }
     doStuff(stuff){
 
@@ -23,7 +22,7 @@ export default class Blog extends React.Component{
             min = "0" + now.getMinutes();
         }else{min =now.getMinutes()}
         var newPost = {
-            username: "[placeholder]",
+            username: sessionStorage.getItem('username'),
             comment: stuff,
             timestamp: now.getDay() + "/" +now.getMonth()+ '/' + now.getFullYear() + " " + now.getHours() + ":" + min
         };
@@ -40,23 +39,17 @@ export default class Blog extends React.Component{
 
         Request.post('http://localhost:3000/postForum').send(this.state.data[0]).end(function(err,res){
             if(err){console.log(err)}
-
+            
         });
         this.forceUpdate();
 
-    }getForum(batchname,isTimer)
+    }getForum(batchname)
     {
 
         var url = 'http://localhost:3000/getForum/'+batchname;
         console.log(url);
         Request.get(url).then(result =>{
-            this.timer = setInterval(()=>{this.getForum(this)},15000);
-            if(isTimer){
-                isTimer.setState({data:JSON.parse(result.text)});
-            }else {
                 this.setState({data: JSON.parse(result.text)});
-            }
-
         });
 
 
@@ -66,7 +59,9 @@ export default class Blog extends React.Component{
         console.log(url);
         let stuff = Request.get(url).then((result)=>{
             this.setState({batch:JSON.parse(result.text)[0].batch});
-            this.getForum(this.state.batch.batchName,this.timer);
+
+            sessionStorage.setItem('batchName',this.state.batch.batchName);
+            this.getForum(this.state.batch.batchName);
             })
 
 
@@ -83,10 +78,10 @@ export default class Blog extends React.Component{
 
 
     }
-    componentDidMount(){
+
+    componentWillUnmount(){
 
     }
-
     render(){
 
         if(this.state.data){

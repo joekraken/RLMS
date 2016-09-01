@@ -84,6 +84,7 @@ DataAccess.prototype.getForums=(batchName,callback)=>{//todo
         if(batchName)
         {
             cursor = db.collection('forum').find({batchName:batchName})
+            console.log('Ive been called!')
         }else{
             cursor = db.collection('forum').find();
         }
@@ -138,7 +139,7 @@ DataAccess.prototype.getLessons=(lessonName,callback)=>{
     var cursor;
     client.connect(url, (err,db)=>{
         if(lessonName) {
-            cursor = db.collection('lesson').find({lessonName:lessonName});
+            cursor = db.collection('lesson').find({curriculum:lessonName});
         }else{
             cursor = db.collection('lesson').find();
         }

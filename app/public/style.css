@@ -6,7 +6,7 @@
 }
 
 #registerDiv{
-    margin-top: 1.5em;
+    margin-top: 90px;
 }
 
 .btnCenter{
@@ -33,4 +33,8 @@
 .examHeader {
     text-align: center;
     font-family: "Arial Rounded MT Bold";
+}
+
+.option label:hover{
+    font-weight: bolder;
 }
