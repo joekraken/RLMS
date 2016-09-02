@@ -9,32 +9,13 @@ var express = require('express'),
     webpackDevMiddleware = require('webpack-dev-middleware'),
     webpackHotMiddleware = require('webpack-hot-middleware'),
     gutil = require('gulp-util'),
-    webpackConfig =require(configDir);
+    webpackConfig =require(configDir),
     compiler=webpack(webpackConfig);
 
-var userRouter  = require('./routing/RLMSGetUsers.js');
-app.use('',userRouter);
-var basicRouter = require('./routing/RLMSTesting.js');
-app.use('/api',basicRouter);
-
-var DA = require('./tools/mongoDataAccess.js');
-
-var RLMSExam = require('./routing/RLMSExam.js');
-app.use("", RLMSExam);
-
-var login = require('./routing/RLMSPassport/sRoutes');
-app.use('/api', login);
-
-var DA = require('./tools/mongoDataAccess.js');
-
 var RLMSForum = require('./routing/RLMSForum.js');
-var RLMSC = require('./routing/RLMSCurriculum.js');
-
-var RLMSAdmin = require('./routing/RLMSAdmin.js');
-app.use("/admin", RLMSAdmin);
-
+var RLMSUsers = require('./routing/RLMSGetUsers.js');
+app.use("",RLMSUsers);
 app.use("",RLMSForum);
-app.use("",RLMSC);
 app.use(webpackDevMiddleware(compiler, {
     hot: true,
     filename: '[name].js',
