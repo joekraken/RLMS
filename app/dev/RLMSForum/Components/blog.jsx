@@ -1,10 +1,10 @@
 import React from 'react';
-import {render} from 'react-dom';
+import ReactDOM from 'react-dom';
 import Request from 'superagent';
 import NewComment from './newComment.jsx';
 
 var posts=[];
-class Blog extends React.Component{
+export default class Blog extends React.Component{
     constructor()
     {
         super();
@@ -39,7 +39,7 @@ class Blog extends React.Component{
 
         Request.post('http://localhost:3000/postForum').send(this.state.data[0]).end(function(err,res){
             if(err){console.log(err)}
-
+            
         });
         this.forceUpdate();
 
@@ -69,11 +69,10 @@ class Blog extends React.Component{
     componentWillMount(){
 
         if(!sessionStorage.getItem("username")){
-          // Feature temporarily disabled due to no input from query string
-            // const {query} = this.props.location;
-            // const {id} = query;
-            // console.log(id);
-            sessionStorage.setItem("username",'Ahredmon');
+            const {query} = this.props.location;
+            const {id} = query;
+            console.log(id);
+            sessionStorage.setItem("username",id);
         }
         this.getUser(sessionStorage.getItem("username"));
 
@@ -147,4 +146,3 @@ const Comment = (props) => {
     )
 
 }
-render(<Blog/>,document.getElementById('app'));
